@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isolatie.Erfgoed — Binnenisolatie voor historische gevels in Vlaanderen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,200;0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blauw: #1A3A5C;
+  --blauw-mid: #2C5282;
+  --rust: #C0392B;
+  --oranje: #D35400;
+  --clay: #8B6914;
+  --slate: #4A5568;
+  --licht: #F7F4EF;
+  --wit: #FFFFFF;
+  --border: #E2D9CE;
+  --tekst: #2D2D2D;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--licht); color: var(--tekst); font-size: 15px; line-height: 1.7; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--blauw);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem; height: 60px;
+  border-bottom: 2px solid var(--oranje);
+}
+.nav-brand { font-family: 'DM Mono', monospace; font-size: 1.1rem; color: #fff; text-decoration: none; letter-spacing: 0.02em; }
+.nav-brand span { color: var(--oranje); }
+.nav-links { display: flex; gap: 0; list-style: none; }
+.nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.5rem 1rem; transition: color 0.2s; display: block; }
+.nav-links a:hover, .nav-links a.active { color: #fff; }
+.nav-links a.active { border-bottom: 2px solid var(--oranje); }
+
+/* PAGES */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200;
+  display: flex; align-items: center; justify-content: center; padding: 2rem;
+}
+.modal-box {
+  background: var(--wit); max-width: 540px; width: 100%; padding: 3rem;
+  border-top: 4px solid var(--oranje);
+}
+.modal-icon { font-size: 2rem; margin-bottom: 1rem; }
+.modal-box h2 { font-family: 'Source Serif 4', serif; font-size: 1.6rem; font-weight: 300; color: var(--blauw); margin-bottom: 1rem; }
+.modal-box p { font-size: 0.88rem; color: var(--slate); line-height: 1.7; margin-bottom: 1.5rem; }
+.modal-box button {
+  background: var(--blauw); color: #fff; border: none; padding: 0.85rem 2rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 600;
+  cursor: pointer; width: 100%; transition: background 0.2s;
+}
+.modal-box button:hover { background: var(--oranje); }
+
+/* HERO */
+.hero {
+  background: var(--blauw);
+  padding: 5rem 4rem 4rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: 'ERF';
+  position: absolute; top: -1rem; left: -1rem;
+  font-family: 'Source Serif 4', serif; font-size: 12rem; font-weight: 200;
+  color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none;
+}
+.hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--oranje); font-weight: 600; margin-bottom: 1.5rem; }
+.hero h1 { font-family: 'Source Serif 4', serif; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 200; color: #fff; line-height: 1.1; margin-bottom: 1.5rem; }
+.hero h1 span { color: var(--oranje); font-style: italic; }
+.hero-sub { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 560px; line-height: 1.7; margin-bottom: 2.5rem; }
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary { background: var(--oranje); color: #fff; padding: 0.85rem 2rem; text-decoration: none; font-size: 0.88rem; font-weight: 600; display: inline-block; transition: background 0.2s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.btn-primary:hover { background: #B84700; }
+.btn-secondary { background: transparent; color: rgba(255,255,255,0.8); padding: 0.85rem 2rem; text-decoration: none; font-size: 0.88rem; font-weight: 500; border: 1px solid rgba(255,255,255,0.3); display: inline-block; transition: all 0.2s; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.btn-secondary:hover { border-color: #fff; color: #fff; }
+
+/* STATS */
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
+.stat-cell { padding: 2rem; border-right: 1px solid var(--border); text-align: center; }
+.stat-cell:last-child { border-right: none; }
+.big { font-family: 'Source Serif 4', serif; font-size: 2.5rem; font-weight: 200; color: var(--blauw); line-height: 1; margin-bottom: 0.5rem; }
+.label { font-size: 0.78rem; color: var(--slate); line-height: 1.4; letter-spacing: 0.02em; }
+
+/* CONTENT */
+.content-wrapper { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+.breadcrumb { font-size: 0.78rem; color: var(--slate); margin-bottom: 2.5rem; display: flex; gap: 0.5rem; align-items: center; }
+.breadcrumb a { color: var(--blauw); text-decoration: none; }
+.breadcrumb span:last-child { color: var(--tekst); }
+
+/* PAGE HERO */
+.page-hero { background: var(--blauw); padding: 4rem 4rem 3rem; position: relative; }
+.page-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--oranje); }
+.page-number { font-family: 'DM Mono', monospace; font-size: 4rem; font-weight: 500; color: rgba(255,255,255,0.06); line-height: 1; margin-bottom: 0.5rem; }
+.page-eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--oranje); font-weight: 600; margin-bottom: 1rem; }
+.page-title { font-family: 'Source Serif 4', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 200; color: #fff; margin-bottom: 1rem; }
+.page-subtitle { font-size: 0.95rem; color: rgba(255,255,255,0.7); max-width: 680px; line-height: 1.7; }
+
+/* SECTIONS */
+.techniques-section { margin: 3rem 0; }
+.techniques-section h2 { font-family: 'Source Serif 4', serif; font-size: 1.6rem; font-weight: 300; color: var(--blauw); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.technique-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.technique-item { background: var(--wit); border: 1px solid var(--border); padding: 1.5rem; }
+.technique-item h4 { font-size: 0.9rem; font-weight: 600; color: var(--blauw); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.technique-item p { font-size: 0.85rem; color: var(--slate); line-height: 1.65; }
+.technique-item p + p { margin-top: 0.5rem; }
+
+/* BANNERS */
+.info-banner { background: #EBF4FF; border-left: 4px solid var(--blauw-mid); padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.86rem; color: var(--slate); line-height: 1.65; }
+.warning-banner { background: #FFF5F0; border-left: 4px solid var(--rust); padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.86rem; color: var(--slate); line-height: 1.65; }
+.info-banner a, .warning-banner a { color: var(--rust); }
+
+/* REGULATION BOX */
+.regulation-box { background: var(--blauw); padding: 2rem; margin: 2rem 0; }
+.regulation-box h3 { font-family: 'Source Serif 4', serif; font-size: 1.2rem; font-weight: 300; color: #fff; margin-bottom: 1.25rem; }
+.regulation-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.regulation-box li { font-size: 0.85rem; color: rgba(255,255,255,0.8); padding-left: 1.25rem; position: relative; line-height: 1.5; }
+.regulation-box li::before { content: '—'; position: absolute; left: 0; color: var(--oranje); }
+
+/* PROCESS */
+.process-section { margin: 3rem 0; }
+.process-section h2 { font-family: 'Source Serif 4', serif; font-size: 1.6rem; font-weight: 300; color: var(--blauw); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+.steps-list { display: flex; flex-direction: column; gap: 1rem; }
+.step-item { display: flex; gap: 1.5rem; align-items: flex-start; background: var(--wit); border: 1px solid var(--border); padding: 1.5rem; }
+.step-number { font-family: 'DM Mono', monospace; font-size: 1.5rem; font-weight: 500; color: var(--oranje); min-width: 40px; line-height: 1; }
+.step-content h4 { font-size: 0.88rem; font-weight: 600; color: var(--blauw); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.step-content p { font-size: 0.85rem; color: var(--slate); line-height: 1.65; }
+
+/* HOME CARDS */
+.cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin: 3rem 0; background: var(--border); border: 1px solid var(--border); }
+.card { background: var(--wit); padding: 2.5rem; cursor: pointer; transition: background 0.2s; }
+.card:hover { background: #F0EAE2; }
+.card-num { font-family: 'DM Mono', monospace; font-size: 3rem; font-weight: 500; color: var(--border); line-height: 1; margin-bottom: 1rem; }
+.card h3 { font-family: 'Source Serif 4', serif; font-size: 1.25rem; font-weight: 400; color: var(--blauw); margin-bottom: 0.75rem; }
+.card p { font-size: 0.85rem; color: var(--slate); line-height: 1.65; }
+.card-link { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--oranje); margin-top: 1.25rem; display: inline-block; }
+
+/* TABLE */
+.data-table-section { margin: 3rem 0; }
+.data-table-section h2 { font-family: 'Source Serif 4', serif; font-size: 1.6rem; font-weight: 300; color: var(--blauw); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+thead { background: var(--blauw); }
+thead th { color: #fff; padding: 0.75rem 1rem; text-align: left; font-weight: 500; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+tbody tr { border-bottom: 1px solid var(--border); }
+tbody tr:nth-child(even) { background: rgba(26,58,92,0.03); }
+tbody td { padding: 0.85rem 1rem; color: var(--slate); vertical-align: top; }
+
+/* INTRO COLS */
+.intro-cols { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; margin: 2.5rem 0; }
+.intro-sidebar h3 { font-family: 'Source Serif 4', serif; font-size: 1.2rem; font-weight: 400; color: var(--blauw); margin-bottom: 0.75rem; }
+.intro-sidebar p, .intro-body p { font-size: 0.88rem; color: var(--slate); line-height: 1.7; margin-bottom: 0.75rem; }
+
+/* TOOL */
+.tool-wrapper { max-width: 700px; margin: 3rem auto; padding: 0 2rem; }
+.tool-progress { display: flex; gap: 4px; margin-bottom: 2rem; }
+.progress-dot { height: 3px; flex: 1; background: var(--border); transition: background 0.3s; }
+.progress-dot.done { background: var(--oranje); }
+.tool-step { display: none; animation: fadeIn 0.3s ease; }
+.tool-step.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.step-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--oranje); font-weight: 600; margin-bottom: 0.5rem; }
+.step-q { font-family: 'Source Serif 4', serif; font-size: 1.6rem; font-weight: 300; color: var(--blauw); margin-bottom: 0.5rem; }
+.step-hint { font-size: 0.82rem; color: var(--slate); margin-bottom: 1.75rem; line-height: 1.6; }
+.options { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+.option-btn {
+  background: var(--wit); border: 1.5px solid var(--border); padding: 1.1rem 1.5rem;
+  cursor: pointer; text-align: left; transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.option-btn:hover { border-color: var(--blauw); background: #EBF4FF; }
+.option-btn.selected { border-color: var(--blauw); background: #EBF4FF; }
+.option-btn.blocked { border-color: var(--rust); background: #FFF5F0; cursor: default; }
+.opt-title { font-size: 0.9rem; font-weight: 600; color: var(--blauw); display: block; margin-bottom: 0.2rem; }
+.opt-desc { font-size: 0.8rem; color: var(--slate); display: block; line-height: 1.5; }
+.tool-nav { display: flex; gap: 1rem; justify-content: space-between; align-items: center; }
+.tool-back { background: none; border: 1px solid var(--border); padding: 0.7rem 1.5rem; cursor: pointer; font-size: 0.82rem; color: var(--slate); font-family: 'DM Sans', sans-serif; }
+.tool-next { background: var(--blauw); color: #fff; border: none; padding: 0.7rem 1.75rem; cursor: pointer; font-size: 0.82rem; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
+.tool-next:hover { background: var(--oranje); }
+.tool-next:disabled { background: var(--border); color: var(--slate); cursor: not-allowed; }
+.block-msg { background: #FFF5F0; border-left: 4px solid var(--rust); padding: 1.25rem 1.5rem; margin: 1rem 0; font-size: 0.86rem; color: var(--slate); line-height: 1.65; display: none; }
+.block-msg.visible { display: block; }
+
+/* ADVICE */
+.advice-box { background: var(--blauw); padding: 2.5rem; margin: 2rem 0; }
+.advice-badge { display: inline-block; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; padding: 0.3rem 0.75rem; margin-bottom: 1rem; }
+.badge-groen { background: #2F855A; color: #fff; }
+.badge-oranje { background: var(--oranje); color: #fff; }
+.badge-rood { background: var(--rust); color: #fff; }
+.advice-title { font-family: 'Source Serif 4', serif; font-size: 1.8rem; font-weight: 200; color: #fff; margin-bottom: 0.75rem; }
+.advice-sub { font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 1.5rem; }
+.advice-materials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+.advice-mat { background: rgba(255,255,255,0.08); padding: 1.25rem; border-left: 3px solid var(--oranje); }
+.advice-mat h4 { font-size: 0.85rem; font-weight: 600; color: #fff; margin-bottom: 0.4rem; }
+.advice-mat p { font-size: 0.78rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+.advice-actions { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+.advice-actions a, .advice-actions button { padding: 0.75rem 1.5rem; font-size: 0.82rem; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; text-decoration: none; display: inline-block; }
+
+/* WARMTE */
+.warmte-section { background: var(--wit); border: 1px solid var(--border); padding: 2.5rem; margin: 3rem 0; }
+.warmte-section h3 { font-family: 'Source Serif 4', serif; font-size: 1.4rem; font-weight: 300; color: var(--blauw); margin-bottom: 0.5rem; }
+.warmte-bars { margin: 1.5rem 0; display: flex; flex-direction: column; gap: 0.75rem; }
+.warmte-bar { display: flex; align-items: center; gap: 1rem; }
+.bar-label { font-size: 0.8rem; color: var(--slate); min-width: 160px; }
+.bar-track { flex: 1; height: 8px; background: var(--border); border-radius: 0; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--blauw); border-radius: 0; transition: width 1s ease; }
+.bar-fill.highlight { background: var(--oranje); }
+.bar-pct { font-size: 0.8rem; font-weight: 600; color: var(--blauw); min-width: 36px; text-align: right; }
+
+/* WHY SECTION */
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0; }
+.why-item { padding: 1.5rem; background: var(--wit); border: 1px solid var(--border); }
+.why-item h4 { font-size: 0.85rem; font-weight: 600; color: var(--blauw); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.why-item p { font-size: 0.82rem; color: var(--slate); line-height: 1.6; }
+
+/* FOOTER */
+footer { background: var(--blauw); padding: 3rem 4rem 1.5rem; margin-top: 4rem; border-top: 3px solid var(--oranje); }
+.footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+.footer-brand { font-family: 'DM Mono', monospace; font-size: 1.1rem; color: #fff; margin-bottom: 0.75rem; }
+.footer-brand span { color: var(--oranje); }
+.footer-desc { font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.footer-col h5 { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-col li a { font-size: 0.82rem; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; cursor: pointer; }
+.footer-col li a:hover { color: #fff; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.25rem; display: flex; justify-content: space-between; }
+.footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
+
+/* IMG PLACEHOLDER */
+.img-placeholder { width: 100%; height: 180px; background: linear-gradient(135deg, var(--blauw) 0%, var(--blauw-mid) 100%); display: flex; align-items: center; justify-content: center; }
+.img-placeholder span { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+
+@media (max-width: 900px) {
+  .technique-grid { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .intro-cols { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hero { padding: 3rem 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-icon">⚠</div>
+    <h2>Lees dit voor u verder gaat</h2>
+    <p>De adviezen op deze site zijn indicatief en gebaseerd op een bachelorproef. Ze zijn <strong>geen vervanging voor gespecialiseerd advies</strong>. Schakel altijd een erkend architect, EPB-verslaggever of erfgoedconsulent in voor de definitieve materiaalkeuze, bouwfysische berekening en uitvoering van isolatiewerken aan historische gebouwen.</p>
+    <p>Controleer bij aannemers uitdrukkelijk of zij aantoonbare ervaring hebben met isolatie van historische muren en vraag altijd referenties op.</p>
+    <button onclick="document.getElementById('modal').style.display='none'">Ik heb bovenstaande gelezen en begrepen — Verder naar de website →</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" onclick="showPage('home')" style="cursor:pointer;">Isolatie<span>.</span>Erfgoed</a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('beschermingsstatus')" id="nav-beschermingsstatus">Beschermingsstatus</a></li>
+    <li><a onclick="showPage('systemen')" id="nav-systemen">Isolatiesystemen</a></li>
+    <li><a onclick="showPage('materialen')" id="nav-materialen">Materialen</a></li>
+    <li><a onclick="showPage('ioed')" id="nav-ioed">Uw IOED</a></li>
+    <li><a onclick="showPage('tool')" id="nav-tool">Advies op maat</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HOME ===== -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <p class="hero-eyebrow">Vlaanderen · Historisch Erfgoed · Binnenisolatie</p>
+    <h1>Isolatie van<br><span>Historische</span><br>Gevels in Vlaanderen</h1>
+    <p class="hero-sub">Een praktische leidraad voor eigenaars van historische gebouwen in Vlaanderen. Ontdek welk binnenisolatiesysteem en welk materiaal het meest aangewezen is voor uw specifieke muursituatie — nog voor u een specialist inschakelt.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showPage('tool')">Advies op maat →</button>
+      <button class="btn-secondary" onclick="document.getElementById('home-info').scrollIntoView({behavior:'smooth'})">Meer info</button>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-cell"><div class="big">75.000</div><div class="label">Erfgoedobjecten in Vlaanderen, waarvan 11.400 beschermd</div></div>
+    <div class="stat-cell"><div class="big">2050</div><div class="label">Doeljaar klimaatneutraliteit Europa — gebouwen spelen een cruciale rol</div></div>
+    <div class="stat-cell"><div class="big">0,24</div><div class="label">Maximale U-waarde W/m²K voor niet-vrijgestelde gevels bij renovatie</div></div>
+    <div class="stat-cell"><div class="big">25%</div><div class="label">Van het warmteverlies in een niet-geïsoleerd gebouw via de muren</div></div>
+  </div>
+
+  <div class="content-wrapper" id="home-info">
+    <div class="cards-grid">
+      <div class="card" onclick="showPage('beschermingsstatus')">
+        <div class="card-num">01</div>
+        <h3>Beschermingsstatus en juridisch kader</h3>
+        <p>Wat betekent beschermd monument, vastgesteld erfgoed of beschermd stadsgezicht voor uw renovatieplicht? Ontdek welke EPB-vrijstellingen van toepassing zijn.</p>
+        <span class="card-link">Lees meer →</span>
+      </div>
+      <div class="card" onclick="showPage('systemen')">
+        <div class="card-num">02</div>
+        <h3>Isolatiesystemen vergelijken</h3>
+        <p>Buiten- en spouwisolatie zijn bij historische gevels in de meeste gevallen onmogelijk. Binnenisolatie blijft de enige optie — maar welk systeem past bij uw muur?</p>
+        <span class="card-link">Lees meer →</span>
+      </div>
+      <div class="card" onclick="showPage('materialen')">
+        <div class="card-num">03</div>
+        <h3>Materialen per systeem</h3>
+        <p>Schuimglas, calciumsilicaat, houtvezel, kalkhennep — welk materiaal werkt wanneer? Vergelijk lambdawaarden, diktes, prijzen en toepasbaarheid.</p>
+        <span class="card-link">Lees meer →</span>
+      </div>
+      <div class="card" onclick="showPage('ioed')">
+        <div class="card-num">04</div>
+        <h3>Uw IOED vinden</h3>
+        <p>Nog voor u een architect inschakelt kunt u gratis terecht bij uw Intergemeentelijke Onroerenderfgoeddienst voor een niet-bindend pre-advies.</p>
+        <span class="card-link">Vind uw IOED →</span>
+      </div>
+    </div>
+
+    <div class="warmte-section">
+      <h3>Waar ontsnapt de warmte?</h3>
+      <p style="font-size:0.85rem;color:var(--slate);margin-bottom:1.5rem;">In een historisch gebouw zonder isolatie ontsnapt de warmte langs alle kanten. De muren zijn na het dak de tweede grootste verliespost.</p>
+      <div class="warmte-bars">
+        <div class="warmte-bar"><span class="bar-label">Dak</span><div class="bar-track"><div class="bar-fill" style="width:30%"></div></div><span class="bar-pct">30%</span></div>
+        <div class="warmte-bar"><span class="bar-label">Muren ← focus</span><div class="bar-track"><div class="bar-fill highlight" style="width:25%"></div></div><span class="bar-pct">25%</span></div>
+        <div class="warmte-bar"><span class="bar-label">Ventilatie</span><div class="bar-track"><div class="bar-fill" style="width:17%"></div></div><span class="bar-pct">17%</span></div>
+        <div class="warmte-bar"><span class="bar-label">Vloer</span><div class="bar-track"><div class="bar-fill" style="width:15%"></div></div><span class="bar-pct">15%</span></div>
+        <div class="warmte-bar"><span class="bar-label">Ramen en deuren</span><div class="bar-track"><div class="bar-fill" style="width:13%"></div></div><span class="bar-pct">13%</span></div>
+      </div>
+      <p style="font-size:0.75rem;color:var(--slate);margin-top:1rem;">Indicatieve verdeling warmteverlies niet-geïsoleerde woning. Bron: Testo / installatieenbouw.be</p>
+    </div>
+
+    <div class="techniques-section">
+      <h2>Waarom dit belangrijk is</h2>
+      <div class="why-grid">
+        <div class="why-item"><h4>Europese druk</h4><p>De Europese Green Deal eist klimaatneutraliteit tegen 2050. Vlaanderen vertaalt dit in een renovatieplicht. Historische gebouwen ontsnappen niet volledig aan deze druk.</p></div>
+        <div class="why-item"><h4>Erfgoed en isolatie</h4><p>Bij historische gebouwen is buitenisolatie uitgesloten omwille van het gevelbeeld. Binnenisolatie is de enige realistische optie maar vereist een doordachte materiaalkeuze.</p></div>
+        <div class="why-item"><h4>Toegankelijke info</h4><p>Bestaande informatie is versnipperd en technisch complex. Deze leidraad vertaalt die kennis naar begrijpelijke richtlijnen voor eigenaars die zich willen oriënteren.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">Isolatie<span>.</span>Erfgoed</div>
+        <p class="footer-desc">Een informatieve leidraad over binnenisolatie voor historische massieve bakstenen gevels in Vlaanderen. Ontwikkeld in het kader van een bachelorproef in samenwerking met Owens Corning Foamglas.</p>
+      </div>
+      <div class="footer-col"><h5>Informatie</h5><ul>
+        <li><a onclick="showPage('beschermingsstatus')">Beschermingsstatus</a></li>
+        <li><a onclick="showPage('systemen')">Isolatiesystemen</a></li>
+        <li><a onclick="showPage('materialen')">Materialen</a></li>
+        <li><a onclick="showPage('ioed')">Uw IOED vinden</a></li>
+      </ul></div>
+      <div class="footer-col"><h5>Tool</h5><ul><li><a onclick="showPage('tool')">Advies op maat</a></li></ul></div>
+      <div class="footer-col"><h5>Externe links</h5><ul>
+        <li><a href="https://geo.onroerenderfgoed.be" target="_blank">Geoportaal Onroerend Erfgoed</a></li>
+        <li><a href="https://inventaris.onroerenderfgoed.be" target="_blank">Inventaris Onroerend Erfgoed</a></li>
+        <li><a href="https://www.vlaanderen.be/epb-pedia" target="_blank">EPB-pedia Vlaanderen</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Isolatie.Erfgoed — Bachelorproef Binnenisolatie Historische Gevels</p>
+      <p>Informatieve leidraad · Geen vervanging voor professioneel advies</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== BESCHERMINGSSTATUS ===== -->
+<div id="page-beschermingsstatus" class="page">
+  <div class="page-hero">
+    <div class="page-number">01</div>
+    <p class="page-eyebrow">Juridisch kader · Vlaanderen</p>
+    <h1 class="page-title">Beschermingsstatus</h1>
+    <p class="page-subtitle">De beschermingsstatus van uw gebouw bepaalt welke EPB-vrijstellingen van toepassing zijn en hoeveel speelruimte u heeft bij de renovatie.</p>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span>/</span><span>Beschermingsstatus</span></div>
+
+    <div class="stat-row">
+      <div class="stat-cell"><div class="big">11.400</div><div class="label">Beschermde monumenten in Vlaanderen</div></div>
+      <div class="stat-cell"><div class="big">1.563</div><div class="label">Beschermde stads- en dorpsgezichten</div></div>
+      <div class="stat-cell"><div class="big">75.000+</div><div class="label">Objecten op de vastgestelde inventaris</div></div>
+      <div class="stat-cell"><div class="big">2023</div><div class="label">Jaar renovatieplicht van kracht voor residentiële gebouwen</div></div>
+    </div>
+
+    <div class="info-banner"><p><strong>Weet u niet hoe uw pand geklasseerd is?</strong> Zoek uw adres op via het <a href="https://geo.onroerenderfgoed.be" target="_blank">Geoportaal van Onroerend Erfgoed</a> of via de <a href="https://inventaris.onroerenderfgoed.be" target="_blank">Inventaris Onroerend Erfgoed</a>.</p></div>
+
+    <div class="techniques-section">
+      <h2>De vier statuten en hun gevolgen</h2>
+      <div class="technique-grid" style="grid-template-columns:repeat(2,1fr);">
+        <div class="technique-item"><h4>Beschermd monument</h4><p>Uw gebouw is individueel beschermd omwille van zijn erfgoedwaarde. Dit is de strengste categorie. Alle gevels zijn vrijgesteld van de maximale U-waarden, enkel daken en vloeren moeten aan EPB-eisen voldoen. Ingrepen aan exterieur én interieur vereisen toestemming van de erfgoedconsulent. U bent vrijgesteld van de renovatieplicht.</p></div>
+        <div class="technique-item"><h4>Beschermd stads- of dorpsgezicht</h4><p>Uw gebouw maakt deel uit van een beschermd gebied maar is niet individueel beschermd. De vrijstellingen zijn identiek aan die voor beschermde monumenten: alle gevels zijn vrijgesteld van U-waarden, enkel dak en vloer moeten voldoen. U bent eveneens vrijgesteld van de renovatieplicht.</p></div>
+        <div class="technique-item"><h4>Vastgesteld bouwkundig erfgoed</h4><p>Uw gebouw staat op de vastgestelde inventaris maar is niet beschermd. Enkel de gevels zichtbaar vanaf de openbare weg zijn vrijgesteld van maximale U-waarden. Voor andere gevels gelden de gewone EPB-eisen. U bent vrijgesteld van de renovatieplicht. Let op: bij een ingrijpende energetische renovatie gelden de vrijstellingen niet.</p></div>
+        <div class="technique-item"><h4>Geen officiële bescherming</h4><p>Uw gebouw heeft geen erfgoedstatuut maar is historisch. De gewone EPB-eisen zijn volledig van toepassing. Bij een ingrijpende renovatie moeten alle muren voldoen aan een maximale U-waarde van 0,24 W/m²K. U valt wel onder de renovatieplicht als het EPC-label E of F is na een eigendomsoverdracht.</p></div>
+      </div>
+    </div>
+
+    <div class="regulation-box">
+      <h3>EPB-vrijstellingen per statuut — overzicht</h3>
+      <ul>
+        <li>Beschermd monument: alle gevels vrijgesteld van U-waarden</li>
+        <li>Beschermd monument: vrijstelling van ventilatie-eisen</li>
+        <li>Beschermd stads/dorpsgezicht: zelfde vrijstellingen als monument</li>
+        <li>Vastgesteld erfgoed: enkel voorgevel zichtbaar van straat vrijgesteld</li>
+        <li>Vastgesteld erfgoed: andere gevels moeten wel aan U-waarden voldoen</li>
+        <li>Vastgesteld erfgoed: vrijstelling geldt niet bij ingrijpende renovatie</li>
+        <li>Alle statuten: daken en vloeren zijn nooit vrijgesteld</li>
+        <li>Individuele afwijking mogelijk als naleving technisch niet haalbaar is</li>
+      </ul>
+    </div>
+
+    <div class="process-section">
+      <h2>Wat betekent dit in de praktijk?</h2>
+      <div class="steps-list">
+        <div class="step-item"><div class="step-number">01</div><div class="step-content"><h4>Zoek uw beschermingsstatus op</h4><p>Raadpleeg het Geoportaal van Onroerend Erfgoed via geo.onroerenderfgoed.be. Vul uw adres in en download het perceelsrapport. Dit toont uw exacte erfgoedstatus en alle bijhorende beschermingen.</p></div></div>
+        <div class="step-item"><div class="step-number">02</div><div class="step-content"><h4>Raadpleeg uw erfgoedconsulent</h4><p>Bij beschermde monumenten en vastgesteld erfgoed is het sterk aanbevolen om vroeg in het proces contact op te nemen met de erfgoedconsulent van uw gemeente of het agentschap Onroerend Erfgoed.</p></div></div>
+        <div class="step-item"><div class="step-number">03</div><div class="step-content"><h4>Individuele afwijking aanvragen</h4><p>Als naleving van de EPB-eisen technisch, functioneel of economisch niet haalbaar is, kunt u een individuele vrijstelling of afwijking aanvragen. De bouwheer, architect of EPB-verslaggever dient deze aanvraag in.</p></div></div>
+        <div class="step-item"><div class="step-number">04</div><div class="step-content"><h4>Kies uw isolatiestrategie</h4><p>Op basis van uw statuut en de toestand van uw muur kunt u de meest geschikte isolatiestrategie bepalen. Gebruik onze tool voor een persoonlijk advies op maat.</p></div></div>
+      </div>
+    </div>
+
+    <div class="warning-banner"><p><strong>Opgelet bij aannemers:</strong> Zorg dat de aannemer aantoonbare ervaring heeft met isolatiewerken aan historische gebouwen. Vraag referenties op en controleer of ze bekend zijn met de specifieke bouwfysica van massieve bakstenen muren.</p></div>
+  </div>
+  <footer>
+    <div class="footer-inner">
+      <div><div class="footer-brand">Isolatie<span>.</span>Erfgoed</div><p class="footer-desc">Bachelorproef binnenisolatie historische gevels, Vlaanderen. In samenwerking met Owens Corning Foamglas.</p></div>
+      <div class="footer-col"><h5>Pagina's</h5><ul><li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('systemen')">Isolatiesystemen</a></li><li><a onclick="showPage('materialen')">Materialen</a></li><li><a onclick="showPage('tool')">Advies op maat</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 Isolatie.Erfgoed</p><p>Informatieve leidraad · Geen vervanging voor professioneel advies</p></div>
+  </footer>
+</div>
+
+<!-- ===== SYSTEMEN ===== -->
+<div id="page-systemen" class="page">
+  <div class="page-hero">
+    <div class="page-number">02</div>
+    <p class="page-eyebrow">Bouwfysica · Isolatiesystemen</p>
+    <h1 class="page-title">Isolatiesystemen vergelijken</h1>
+    <p class="page-subtitle">Bij historische gevels is buitenisolatie bijna altijd onmogelijk en spouwisolatie zelden haalbaar. Binnenisolatie blijft de enige realistische optie — maar welk systeem past bij de toestand van uw muur?</p>
+  </div>
+  <div class="content-wrapper">
+    <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span>/</span><span>Isolatiesystemen</span></div>
+
+    <div class="intro-cols">
+      <div class="intro-sidebar"><h3>Drie systemen, één haalbare optie</h3><p>In theorie bestaan er drie manieren om een gevel te isoleren: buitenisolatie, spouwmuurisolatie en binnenisolatie. Bij historische gebouwen vallen de eerste twee in de meeste gevallen weg.</p></div>
+      <div class="intro-body"><p>Historische massieve bakstenen gevels van voor 1945 zijn opgebouwd uit traditionele materialen die van nature vocht opnemen en weer afgeven. Wanneer u een isolatielaag toevoegt, verandert u de manier waarop die muur omgaat met vocht. Een foute keuze kan leiden tot condensatie, schimmelvorming, vorstschade of zoutschade.</p><p>De keuze van het juiste isolatiesysteem hangt dan ook niet enkel af van de isolatiewaarde of de prijs, maar in de eerste plaats van de bouwfysische toestand van uw muur.</p></div>
+    </div>
+
+    <div class="techniques-section">
+      <h2>Waarom buiten en spouw niet werken bij historisch erfgoed</h2>
+      <div class="technique-grid">
+        <div class="technique-item"><h4>Buitengevelisolatie — uitgesloten</h4><p>Bij buitenisolatie wordt de gevel volledig ingepakt met een isolatielaag en een nieuwe afwerking. Het buitenaanzicht wijzigt ingrijpend: gevelopeningen komen dieper te liggen, het materiaalkarakter verdwijnt en karakteristieke elementen gaan verloren. Bij onbepleisterde bakstenen gevels is dit onaanvaardbaar vanuit erfgoedstandpunt.</p></div>
+        <div class="technique-item"><h4>Spouwmuurisolatie — zelden haalbaar</h4><p>Spouwmuren vereisen een minimale spouwbreedte van 5 cm en een spouw vrij van mortelresten — een conditie die bij historische spouwen zelden gegarandeerd kan worden. Spouwmuurisolatie bij historische gebouwen wordt dan ook in de meeste gevallen afgeraden of niet toegestaan.</p></div>
+        <div class="technique-item"><h4>Binnengevelisolatie — de enige optie</h4><p>Wanneer buiten en spouw wegvallen, blijft binnenisolatie over. Het buitenaanzicht van de gevel blijft volledig onaangetast. Toch is binnenisolatie bij historische muren geenszins eenvoudig: de bouwfysische risico's zijn aanzienlijk en de keuze van het systeem is bepalend.</p></div>
+      </div>
+    </div>
+
+    <div class="techniques-section">
+      <h2>De twee systemen voor binnenisolatie</h2>
+      <div class="technique-grid" style="grid-template-columns:repeat(2,1fr);">
+        <div class="technique-item">
+          <h4>Dampdicht systeem</h4>
+          <p>Bij een dampdichte aanpak wordt de muur afgesloten met een laag die geen waterdamp doorlaat. Het principe is dat vocht de constructie nooit bereikt. Materialen zoals schuimglas of PIR werken op dit principe.</p>
+          <p style="margin-top:0.75rem;"><strong style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--rust);">Wanneer aangewezen:</strong> Bij muren waarbij vochtproblemen volledig zijn gesaneerd en de ondergrond droog is.</p>
+          <p style="margin-top:0.5rem;"><strong style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--slate);">Kritische voorwaarde:</strong> De ondergrond moet volledig droog, vrij van zouten en stabiel zijn voor aanvang.</p>
+        </div>
+        <div class="technique-item">
+          <h4>Capillair actief systeem</h4>
+          <p>Bij een capillair actieve aanpak werkt het isolatiemateriaal samen met de bestaande muur. Het materiaal is dampopen én kan vocht opnemen en herverdelen via capillaire werking.</p>
+          <p style="margin-top:0.75rem;"><strong style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--oranje);">Wanneer aangewezen:</strong> Bij muren met hoge regenbelasting (west- of zuidgericht). Onderzoek toont dat bij slagregen een muur met capillair actieve isolatie gemiddeld 18% meer vocht bevat dan niet-geïsoleerd, terwijl dit bij dampremmende systemen kan oplopen tot 62% (WTCB, 2019).</p>
+          <p style="margin-top:0.5rem;"><strong style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--blauw-mid);">Niet toepassen bij:</strong> Actieve vochtinfiltraties door regendoorslag of niet-regendichte muren.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-banner"><p><strong>Dampopen maar niet-capillair actief — niet aanbevolen:</strong> Materialen zoals minerale wol laten waterdamp door maar kunnen geen vloeibaar water vasthouden. Dit systeem is voor historische massieve muren te risicovol zonder voorafgaande bouwfysische berekening (WTCB-Contact 2019/5).</p></div>
+
+    <div class="regulation-box">
+      <h3>Wanneer welk systeem — samenvatting</h3>
+      <ul>
+        <li>Geen pathologieën, noord/oost: beide systemen mogelijk, capillair actief als voorkeur</li>
+        <li>Geen pathologieën, zuid/west: capillair actief aanbevolen vanwege regenbelasting</li>
+        <li>Behandeld opstijgend vocht, muur droog: dampdicht systeem als voorkeur</li>
+        <li>Behandeld opstijgend vocht, muur nog vochtig: capillair actief tijdelijk</li>
+        <li>Behandelde zoutschade: dampdicht systeem, muur moet volledig droog zijn</li>
+        <li>Behandeld regendoorslag: capillair actief, dampdicht wordt afgeraden</li>
+        <li>Onbehandelde pathologieën: geen isolatie — eerst saneren</li>
+        <li>Historische binnenafwerking: overleg met erfgoedconsulent vereist</li>
+      </ul>
+    </div>
+
+    <div class="process-section">
+      <h2>Risico's bij binnenisolatie</h2>
+      <div class="steps-list">
+        <div class="step-item"><div class="step-number">01</div><div class="step-content"><h4>Condensatie in de muur</h4><p>Door de isolatielaag aan de binnenzijde wordt de buitenmuur kouder. Het dauwpunt kan zich verplaatsen naar of in de muurconstructie. Bij onvoldoende dampbeheersing leidt dit tot vochtophoping en schimmelvorming.</p></div></div>
+        <div class="step-item"><div class="step-number">02</div><div class="step-content"><h4>Koudebruggen bij balkoplegingen</h4><p>Bij massieve historische muren zijn houten vloerbalken vaak rechtstreeks ingemetseld. Waar de muur niet geïsoleerd kan worden ter hoogte van de balkkoppen, ontstaan koudebruggen met condensatie en houtrot als mogelijk gevolg.</p></div></div>
+        <div class="step-item"><div class="step-number">03</div><div class="step-content"><h4>Luchtlekken in de afwerking</h4><p>Binnenisolatie moet luchtdicht worden uitgevoerd. Luchtlekken zorgen voor convectief vochttransport: warme binnenlucht bereikt de koude buitenmuur en condenseert.</p></div></div>
+        <div class="step-item"><div class="step-number">04</div><div class="step-content"><h4>Schade aan historische binnenafwerkingen</h4><p>Binnenisolatie mag nooit worden aangebracht op of tegen historisch waardevolle interieurelementen zoals lambrisering, wandbespanning of decoratieve stuclagen. Overleg altijd met een erfgoedconsulent.</p></div></div>
+      </div>
+    </div>
+
+    <div class="warning-banner"><p><strong>Altijd een professional raadplegen:</strong> Deze leidraad geeft een eerste oriëntatie maar vervangt geen gespecialiseerd advies. Een bouwfysische berekening door een erkend EPB-verslaggever is verplicht bij renovaties onderworpen aan de EPB-eisen.</p></div>
+  </div>
+  <footer>
+    <div class="footer-inner"><div><div class="footer-brand">Isolatie<span>.</span>Erfgoed</div><p class="footer-desc">Bachelorproef binnenisolatie historische gevels, Vlaanderen.</p></div><div class="footer-col"><h5>Pagina's</h5><ul><li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('beschermingsstatus')">Beschermingsstatus</a></li><li><a onclick="showPage('materialen')">Materialen</a></li><li><a onclick="showPage('tool')">Advies op maat</a></li></ul></div></div>
+    <div class="footer-bottom"><p>© 2025 Isolatie.Erfgoed</p><p>Informatieve leidraad · Geen vervanging voor professioneel advies</p></div>
+  </footer>
+</div>
+
+<!-- ===== MATERIALEN ===== -->
+<div id="page-materialen" class="page">
+  <div class="page-hero">
+    <div class="page-number">03</div>
+    <p class="page-eyebrow">Materialen · Eigenschappen · Vergelijking</p>
+    <h1 class="page-title">Materialen per systeem</h1>
+    <p class="page-subtitle">Een vergelijking van de voornaamste isolatiematerialen voor binnenisolatie van historische massieve bakstenen muren — met lambdawaarden, benodigde diktes, prijsindicaties en toepasbaarheid.</p>
+  </div>
+  <div class="content-wrapper">
+    <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span>/</span><span>Materialen</span></div>
+
+    <div class="info-banner"><p><strong>Hoe lees u deze pagina?</strong> De materialen zijn ingedeeld per systeem. Bepaal eerst welk systeem aangewezen is via de pagina <a onclick="showPage('systemen')" style="cursor:pointer;">Isolatiesystemen</a> of via de <a onclick="showPage('tool')" style="cursor:pointer;">advies op maat tool</a>. De diktes zijn indicatief voor Rd ≥ 1,75 m²K/W.</p></div>
+
+    <div class="techniques-section">
+      <h2>Dampdicht systeem</h2>
+      <div class="technique-grid" style="grid-template-columns:repeat(2,1fr);">
+        <div class="technique-item" style="padding:0;overflow:hidden;">
+          <div class="img-placeholder"><span>Schuimglas / Foamglas</span></div>
+          <div style="padding:1.5rem;">
+            <h4>Systeem A — Schuimglas (Foamglas)</h4>
+            <p><strong style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--rust);">Aanbevolen materiaal</strong></p>
+            <p style="margin-top:0.5rem;">Schuimglas heeft een volledig gesloten celstructuur en is volledig waterdamp- en vochtdicht. Het is het enige isolatiemateriaal dat volkomen onvatbaar is voor vocht, zouten en micro-organismen.</p>
+            <p style="margin-top:0.75rem;font-size:0.82rem;color:var(--slate);"><strong>λ-waarde:</strong> 0,038 W/mK &nbsp;|&nbsp; <strong>Dikte:</strong> ± 7 cm voor Rd 1,75 &nbsp;|&nbsp; <strong>Prijs:</strong> 60–100 €/m²</p>
+            <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--slate);"><strong>Voordelen:</strong> Volledig vocht- en dampdicht, bestand tegen zouten, onbrandbaar, levensduur +50 jaar.</p>
+            <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--slate);"><strong>Aandachtspunten:</strong> Hoogste prijs, moeilijker te verwerken, ondergrond moet volledig droog zijn bij plaatsing.</p>
+          </div>
+        </div>
+        <div class="technique-item" style="padding:0;overflow:hidden;">
+          <div class="img-placeholder"><span>PIR isolatieplaten</span></div>
+          <div style="padding:1.5rem;">
+            <h4>Systeem A — PIR-platen</h4>
+            <p><strong style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--clay);">Alternatief bij beperkte ruimte</strong></p>
+            <p style="margin-top:0.5rem;">PIR is een hard schuimisolatiemateriaal met een zeer lage lambdawaarde. De platen zijn zelf dampremmend en vormen bij correcte verlijming een goed dampscherm.</p>
+            <p style="margin-top:0.75rem;font-size:0.82rem;color:var(--slate);"><strong>λ-waarde:</strong> 0,022 W/mK &nbsp;|&nbsp; <strong>Dikte:</strong> ± 6 cm voor Rd 1,75 &nbsp;|&nbsp; <strong>Prijs:</strong> 20–35 €/m²</p>
+            <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--slate);"><strong>Voordelen:</strong> Dunste optie, goede prijs-kwaliteit, eenvoudig te verwerken.</p>
+            <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--slate);"><strong>Aandachtspunten:</strong> Brandbaar, naden moeten zorgvuldig worden afgedicht, niet bij actieve vochtproblemen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="techniques-section">
+      <h2>Capillair actief systeem</h2>
+      <div class="warning-banner" style="margin-bottom:2rem;"><p><strong>Opgelet:</strong> Sommige fabrikanten presenteren hun materiaal als capillair actief terwijl het eerder dampremmend is. Controleer altijd de productfiche. De totale isolatiewaarde daalt zo'n 10% door de vochtbuffering (WTCB-Contact 2019/5).</p></div>
+      <div class="technique-grid">
+        <div class="technique-item" style="padding:0;overflow:hidden;">
+          <div class="img-placeholder"><span>Calciumsilicaat</span></div>
+          <div style="padding:1.5rem;">
+            <h4>Systeem B — Calciumsilicaat</h4>
+            <p><strong style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--rust);">Aanbevolen materiaal</strong></p>
+            <p style="margin-top:0.5rem;">Calciumsilicaatplaten zijn mineraal, capillair actief en dampopen. Ze verhogen de wandtemperatuur waardoor condensvorming en schimmelvorming worden vermeden.</p>
+            <p style="margin-top:0.75rem;font-size:0.82rem;color:var(--slate);"><strong>λ-waarde:</strong> 0,065 W/mK &nbsp;|&nbsp; <strong>Dikte:</strong> ± 11 cm voor Rd 1,75 &nbsp;|&nbsp; <strong>Prijs:</strong> 30–60 €/m²</p>
+            <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--slate);"><strong>Voordelen:</strong> Capillair actief en dampopen, brandveilig (A1), compatibel met kalkpleister.</p>
+            <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--slate);"><strong>Toepasbaarheid:</strong> Breed toepasbaar bij historische massieve muren, ook bij lichte vochtbelasting. Meest aanbevolen voor erfgoedcontext.</p>
+          </div>
+        </div>
+        <div class="technique-item" style="padding:0;overflow:hidden;">
+          <div class="img-placeholder"><span>Houtvezelplaten</span></div>
+          <div style="padding:1.5rem;">
+            <h4>Systeem B — Houtvezelplaten</h4>
+            <p><strong style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--clay);">Alternatief — ecologisch</strong></p>
+            <p style="margin-top:0.5rem;">Houtvezelplaten zijn biobased, dampopen en capillair actief. Ze hebben een hoge warmteopslagcapaciteit en goede geluidsdempende eigenschappen.</p>
+            <p style="margin-top:0.75rem;font-size:0.82rem;color:var(--slate);"><strong>λ-waarde:</strong> 0,036–0,047 W/mK &nbsp;|&nbsp; <strong>Dikte:</strong> ± 9 cm voor Rd 1,75 &nbsp;|&nbsp; <strong>Prijs:</strong> 11–25 €/m²</p>
+            <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--slate);"><strong>Voordelen:</strong> Ecologisch, betaalbaar, goede vochtregulatie, zomers comfort door hoge massa.</p>
+          </div>
+        </div>
+        <div class="technique-item" style="padding:0;overflow:hidden;">
+          <div class="img-placeholder"><span>Kalkhennepblokken</span></div>
+          <div style="padding:1.5rem;">
+            <h4>Systeem B — Kalkhennepblokken</h4>
+            <p><strong style="font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--clay);">Alternatief — meest compatibel</strong></p>
+            <p style="margin-top:0.5rem;">Kalkhennep is een mengsel van hennepscheven en kalk. Het is volledig dampopen, capillair actief en het meest compatibel met de bouwfysica van historische muren.</p>
+            <p style="margin-top:0.75rem;font-size:0.82rem;color:var(--slate);"><strong>λ-waarde:</strong> 0,071 W/mK &nbsp;|&nbsp; <strong>Dikte:</strong> ± 20 cm voor Rd 2,5 &nbsp;|&nbsp; <strong>Prijs:</strong> Variabel</p>
+            <p style="margin-top:0.5rem;font-size:0.82rem;color:var(--slate);"><strong>Voordelen:</strong> Meest compatibel met historische muren, volledig dampopen, gezond binnenklimaat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-table-section">
+      <h2>Overzichtstabel materialen</h2>
+      <table>
+        <thead><tr><th>Materiaal</th><th>Systeem</th><th>λ (W/mK)</th><th>Dikte Rd 1,75</th><th>Prijs incl. plaatsing</th><th>Brandklasse</th><th>Beste muursituatie</th></tr></thead>
+        <tbody>
+          <tr><td>Schuimglas (Foamglas)</td><td>Dampdicht</td><td>0,038</td><td>± 7 cm</td><td>60–100 €/m²</td><td>A1</td><td>Na sanering vocht/zout, droge muur</td></tr>
+          <tr><td>PIR-platen</td><td>Dampdicht</td><td>0,022</td><td>± 6 cm</td><td>20–35 €/m²</td><td>B–C</td><td>Droge muur, N/O oriëntatie, beperkte ruimte</td></tr>
+          <tr><td>Calciumsilicaat</td><td>Capillair actief</td><td>0,065</td><td>± 11 cm</td><td>30–60 €/m²</td><td>A1</td><td>Breed toepasbaar, lichte vochtbelasting</td></tr>
+          <tr><td>Houtvezelplaten</td><td>Capillair actief</td><td>0,036–0,047</td><td>± 9 cm</td><td>11–25 €/m²</td><td>D</td><td>Droge muur, N/O oriëntatie, ecologisch</td></tr>
+          <tr><td>Kalkhennepblokken</td><td>Capillair actief</td><td>0,071</td><td>± 20 cm</td><td>Variabel</td><td>B</td><td>Droge muur, voldoende ruimte beschikbaar</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="warning-banner"><p><strong>Prijzen zijn indicatief:</strong> De vermelde prijzen zijn richtprijzen inclusief plaatsing. Vraag altijd meerdere offertes op bij aannemers met aantoonbare ervaring in isolatie van historische gebouwen.</p></div>
+  </div>
+  <footer>
+    <div class="footer-inner"><div><div class="footer-brand">Isolatie<span>.</span>Erfgoed</div><p class="footer-desc">Bachelorproef binnenisolatie historische gevels, Vlaanderen.</p></div><div class="footer-col"><h5>Pagina's</h5><ul><li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('systemen')">Isolatiesystemen</a></li><li><a onclick="showPage('ioed')">Uw IOED</a></li><li><a onclick="showPage('tool')">Advies op maat</a></li></ul></div></div>
+    <div class="footer-bottom"><p>© 2025 Isolatie.Erfgoed</p><p>Informatieve leidraad · Geen vervanging voor professioneel advies</p></div>
+  </footer>
+</div>
+
+<!-- ===== IOED ===== -->
+<div id="page-ioed" class="page">
+  <div class="page-hero">
+    <div class="page-number">05</div>
+    <p class="page-eyebrow">Gratis pre-advies · Lokaal aanspreekpunt</p>
+    <h1 class="page-title">Uw IOED vinden</h1>
+    <p class="page-subtitle">Voordat u een architect inschakelt of een vergunning aanvraagt, kunt u gratis terecht bij uw Intergemeentelijke Onroerenderfgoeddienst voor een eerste inschatting van wat haalbaar is voor uw historisch gebouw.</p>
+  </div>
+  <div class="content-wrapper">
+    <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span>/</span><span>Uw IOED vinden</span></div>
+
+    <div class="stat-row" style="grid-template-columns:repeat(3,1fr);">
+      <div class="stat-cell"><div class="big">32</div><div class="label">Erkende IOED's actief in Vlaanderen</div></div>
+      <div class="stat-cell"><div class="big">223</div><div class="label">Vlaamse gemeenten bijgestaan door een IOED</div></div>
+      <div class="stat-cell"><div class="big">Gratis</div><div class="label">Raadpleging door burgers, zonder kosten</div></div>
+    </div>
+
+    <div class="intro-cols">
+      <div class="intro-sidebar"><h3>Wat is een IOED?</h3><p>Een Intergemeentelijke Onroerenderfgoeddienst of IOED is een samenwerkingsverband van Vlaamse gemeenten die samen een erfgoedbeleid uitbouwen. De IOED fungeert als lokaal expertisecentrum en eerste aanspreekpunt.</p></div>
+      <div class="intro-body"><p>Als eigenaar van een historisch gebouw bent u waarschijnlijk niet de enige die zich afvraagt wat nu eigenlijk mogelijk is bij een renovatie. Welke ingrepen zijn aanvaardbaar? Wat zal de erfgoedconsulent later goedkeuren? Dit zijn precies de vragen waarvoor u bij uw IOED terechtkunt, en dat volledig gratis.</p><p>De IOED vervult de rol van erfgoedadviseur in uw regio. Ze staat in contact met eigenaars, architecten, gemeenten en erfgoedconsulenten en geeft pre-advies in een vroeg stadium, nog vóór de formele vergunningsaanvraag wordt ingediend.</p></div>
+    </div>
+
+    <div class="info-banner"><p><strong>Belangrijk:</strong> Het pre-advies van een IOED is niet bindend. Het geeft u een eerste inschatting van wat aanvaardbaar zou kunnen zijn voor uw specifieke pand, maar de definitieve beslissing ligt bij de vergunningverlenende overheid.</p></div>
+
+    <div class="techniques-section">
+      <h2>Wat doet een IOED voor u?</h2>
+      <div class="technique-grid">
+        <div class="technique-item"><h4>Pre-advies op maat</h4><p>De IOED geeft een niet-bindend vooradvies over welke ingrepen aanvaardbaar zouden zijn voor uw specifiek pand. Ze kennen de lokale erfgoedcontext en kunnen op basis van vroege projectinformatie een eerste inschatting geven.</p></div>
+        <div class="technique-item"><h4>Plaatsbezoek</h4><p>De IOED voert plaatsbezoeken uit om uw pand te bekijken en de erfgoedwaarden ter plaatse te beoordelen. Zo kunnen ze een concreet en gericht advies geven.</p></div>
+        <div class="technique-item"><h4>Schakel tussen actoren</h4><p>De IOED staat in contact met eigenaars, architecten, gemeenten en erfgoedconsulenten. Ze fungeert als verbindende schakel en helpt u om de juiste mensen te vinden.</p></div>
+      </div>
+    </div>
+
+    <div class="process-section">
+      <h2>Hoe gaat u te werk?</h2>
+      <div class="steps-list">
+        <div class="step-item"><div class="step-number">01</div><div class="step-content"><h4>Zoek uw IOED op</h4><p>Niet elke gemeente heeft een eigen IOED. Zoek via het officiële overzicht van het agentschap Onroerend Erfgoed welke IOED actief is in uw gemeente.</p></div></div>
+        <div class="step-item"><div class="step-number">02</div><div class="step-content"><h4>Neem vroeg contact op</h4><p>Contacteer de IOED zo vroeg mogelijk in uw project, nog voor u een architect inschakelt of een vergunning aanvraagt. Breng basisinformatie mee: adres, beschermingsstatus en een beschrijving van wat u wilt doen.</p></div></div>
+        <div class="step-item"><div class="step-number">03</div><div class="step-content"><h4>Vraag een pre-advies aan</h4><p>Leg uw plannen voor aan de IOED-consulent. Dit kan op basis van vroege schetsen. De consulent geeft een eerste inschatting van wat erfgoedkundig aanvaardbaar zou zijn.</p></div></div>
+        <div class="step-item"><div class="step-number">04</div><div class="step-content"><h4>Werk verder met een specialist</h4><p>Op basis van het pre-advies kunt u met meer zekerheid een architect of aannemer inschakelen en weet u wat de marges zijn.</p></div></div>
+      </div>
+    </div>
+
+    <div class="regulation-box">
+      <h3>Heeft uw gemeente geen IOED?</h3>
+      <ul>
+        <li>Neem contact op met het agentschap Onroerend Erfgoed rechtstreeks</li>
+        <li>Raadpleeg de erfgoedconsulent van uw provincie</li>
+        <li>Vraag uw gemeente naar het lokale erfgoedbeleid en aanspreekpunten</li>
+        <li>Raadpleeg de inventaris via inventaris.onroerenderfgoed.be</li>
+        <li>Vraag een Energieadvies Onroerend Erfgoed aan als uw pand beschermd is</li>
+        <li>Schakel een architect in met aantoonbare ervaring in erfgoedprojecten</li>
+      </ul>
+    </div>
+
+    <div class="techniques-section">
+      <h2>Uw IOED vinden</h2>
+      <div class="technique-grid" style="grid-template-columns:repeat(2,1fr);">
+        <div class="technique-item"><h4>Officieel overzicht van alle IOED's</h4><p>Het agentschap Onroerend Erfgoed publiceert een volledig overzicht van alle erkende IOED's in Vlaanderen, met per IOED de aangesloten gemeenten en contactgegevens.</p><p style="margin-top:1rem;"><a href="https://www.onroerenderfgoed.be/overzicht-van-de-erkende-ioeds" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.25rem;background:var(--blauw);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:600;">Bekijk het overzicht →</a></p></div>
+        <div class="technique-item"><h4>Geografische kaart van IOED's</h4><p>Op de website van Onroerend Erfgoed is ook een geografisch overzicht beschikbaar waarop u kunt zien welke IOED actief is in uw regio.</p><p style="margin-top:1rem;"><a href="https://www.onroerenderfgoed.be/een-erkende-ioed" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.25rem;background:var(--blauw);color:#fff;text-decoration:none;font-size:0.82rem;font-weight:600;">Meer over IOED's →</a></p></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:3rem;padding:3rem;background:var(--blauw);border-left:4px solid var(--oranje);">
+      <p style="font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--oranje);font-weight:600;margin-bottom:0.75rem;">Klaar voor de volgende stap?</p>
+      <h3 style="font-family:'Source Serif 4',serif;font-size:1.6rem;font-weight:300;color:#fff;margin-bottom:1rem;">Gebruik onze tool voor een eerste technisch advies</h3>
+      <p style="font-size:0.92rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7;">Combineer het pre-advies van uw IOED met het technische advies van onze tool.</p>
+      <button onclick="showPage('tool')" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 2rem;background:var(--oranje);color:#fff;border:none;font-size:0.88rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Start de advies tool →</button>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-inner"><div><div class="footer-brand">Isolatie<span>.</span>Erfgoed</div><p class="footer-desc">Bachelorproef binnenisolatie historische gevels, Vlaanderen.</p></div><div class="footer-col"><h5>Pagina's</h5><ul><li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('beschermingsstatus')">Beschermingsstatus</a></li><li><a onclick="showPage('systemen')">Isolatiesystemen</a></li><li><a onclick="showPage('tool')">Advies op maat</a></li></ul></div></div>
+    <div class="footer-bottom"><p>© 2025 Isolatie.Erfgoed</p><p>Informatieve leidraad · Geen vervanging voor professioneel advies</p></div>
+  </footer>
+</div>
+
+<!-- ===== TOOL ===== -->
+<div id="page-tool" class="page">
+  <div class="page-hero">
+    <div class="page-number">04</div>
+    <p class="page-eyebrow">Interactieve tool · Persoonlijk advies</p>
+    <h1 class="page-title">Advies op maat</h1>
+    <p class="page-subtitle">Beantwoord stap voor stap enkele vragen over uw gebouw en de toestand van uw muur. De tool geeft een persoonlijk advies over welk isolatiesysteem en welke materialen het meest aangewezen zijn.</p>
+  </div>
+
+  <div class="tool-wrapper">
+    <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span>/</span><span>Advies op maat</span></div>
+
+    <div class="info-banner"><p><strong>Één gevel per keer:</strong> Deze tool helpt u de meest geschikte binnenisolatie te kiezen voor één specifieke massieve bakstenen gevel. Heeft u meerdere gevels, doorloop de tool dan voor elke gevel apart.</p></div>
+
+    <div class="tool-progress" id="tool-progress">
+      <div class="progress-dot done" id="dot-1"></div>
+      <div class="progress-dot" id="dot-2"></div>
+      <div class="progress-dot" id="dot-3"></div>
+      <div class="progress-dot" id="dot-4"></div>
+      <div class="progress-dot" id="dot-5"></div>
+      <div class="progress-dot" id="dot-6"></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="tool-step active" id="step-1">
+      <p class="step-label">Stap 1 van 6</p>
+      <h2 class="step-q">Wat is de beschermingsstatus van uw gebouw?</h2>
+      <p class="step-hint">De beschermingsstatus bepaalt welke wettelijke vrijstellingen van toepassing zijn. Weet u het niet? Zoek uw adres op via <a href="https://geo.onroerenderfgoed.be" target="_blank" style="color:var(--rust);">geo.onroerenderfgoed.be</a>.</p>
+      <div class="options">
+        <button class="option-btn" onclick="selectOption(1,'monument')"><span class="opt-title">Beschermd monument</span><span class="opt-desc">Individueel beschermd gebouw. Alle gevels vrijgesteld van U-waarden. Vrijgesteld van renovatieplicht.</span></button>
+        <button class="option-btn" onclick="selectOption(1,'stadsgezicht')"><span class="opt-title">Beschermd stads- of dorpsgezicht</span><span class="opt-desc">Gebouw maakt deel uit van een beschermd gebied. Zelfde vrijstellingen als beschermd monument.</span></button>
+        <button class="option-btn" onclick="selectOption(1,'vastgesteld')"><span class="opt-title">Vastgesteld bouwkundig erfgoed</span><span class="opt-desc">Op de vastgestelde inventaris. Voorgevel vrijgesteld, andere gevels moeten aan EPB-eisen voldoen.</span></button>
+        <button class="option-btn" onclick="selectOption(1,'geen')"><span class="opt-title">Geen officiële bescherming</span><span class="opt-desc">Historisch gebouw zonder erfgoedstatuut. Gewone EPB-eisen zijn van toepassing.</span></button>
+      </div>
+      <div class="tool-nav"><div></div><button class="tool-next" id="next-1" disabled onclick="goToStep(2)">Volgende stap →</button></div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="tool-step" id="step-2">
+      <p class="step-label">Stap 2 van 6</p>
+      <h2 class="step-q">Hoe dik is uw muur?</h2>
+      <p class="step-hint">De dikte van uw muur bepaalt of hij regendicht is. Meet de breedte van een vensterbank of dagkant van een raamopening van buitenzijde tot binnenzijde.</p>
+      <div class="options">
+        <button class="option-btn" onclick="selectOption(2,'dun')"><span class="opt-title">Één steen — ± 20 cm</span><span class="opt-desc">Dunne muur. Meestal niet regendicht. Binnenisolatie beperkt mogelijk en enkel met dampdicht systeem.</span></button>
+        <button class="option-btn" onclick="selectOption(2,'normaal')"><span class="opt-title">Anderhalve steen — ± 30 cm</span><span class="opt-desc">Standaard dikte voor hogere verdiepingen. Doorgaans regendicht bij goede staat van voegen.</span></button>
+        <button class="option-btn" onclick="selectOption(2,'dik')"><span class="opt-title">Twee stenen of meer — ± 40 cm</span><span class="opt-desc">Dikke muur, typisch voor gelijkvloerse verdieping. Regendicht. Alle systemen zijn in principe mogelijk.</span></button>
+      </div>
+      <div class="tool-nav"><button class="tool-back" onclick="goToStep(1)">← Terug</button><button class="tool-next" id="next-2" disabled onclick="goToStep(3)">Volgende stap →</button></div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="tool-step" id="step-3">
+      <p class="step-label">Stap 3 van 6</p>
+      <h2 class="step-q">Welke problemen zijn zichtbaar op uw muur?</h2>
+      <p class="step-hint">Bekijk de muur bij daglicht van dichtbij. U kunt meerdere problemen aanduiden.</p>
+      <div class="options">
+        <button class="option-btn" onclick="selectOption(3,'geen_prob')"><span class="opt-title">Geen zichtbare problemen</span><span class="opt-desc">De muur is droog, geen vlekken, geen uitbloeiingen, geen scheuren.</span></button>
+        <button class="option-btn" onclick="selectOption(3,'opstijgend')"><span class="opt-title">Opstijgend vocht</span><span class="opt-desc">Donkere verkleuring onderaan de muur tot ± 1 m hoogte. Ongeacht het weer aanwezig.</span></button>
+        <button class="option-btn" onclick="selectOption(3,'regendoorslag')"><span class="opt-title">Regendoorslag</span><span class="opt-desc">Loszittend of opbollend pleisterwerk, vochtplek die verschijnt na regen.</span></button>
+        <button class="option-btn" onclick="selectOption(3,'zout')"><span class="opt-title">Zoutschade</span><span class="opt-desc">Witte uitbloeiingen, schilfering of afbrokkeling op het oppervlak.</span></button>
+        <button class="option-btn" onclick="selectOption(3,'scheuren')"><span class="opt-title">Scheuren</span><span class="opt-desc">Zichtbare barsten in het metselwerk of de voegen.</span></button>
+        <button class="option-btn" onclick="selectOption(3,'geschilderd')"><span class="opt-title">Geschilderde buitengevel</span><span class="opt-desc">Verflaag op de buitenzijde. Bemoeilijkt uitdroging naar buiten toe.</span></button>
+      </div>
+      <div class="tool-nav"><button class="tool-back" onclick="goToStep(2)">← Terug</button><button class="tool-next" id="next-3" disabled onclick="goToStep(4)">Volgende stap →</button></div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="tool-step" id="step-4">
+      <p class="step-label">Stap 4 van 6</p>
+      <h2 class="step-q">Zijn de vastgestelde problemen al behandeld?</h2>
+      <p class="step-hint">Isolatie mag nooit worden aangebracht op een muur met actieve schade. De onderliggende oorzaak moet altijd eerst worden aangepakt.</p>
+      <div id="geen-prob-msg" class="info-banner" style="display:none;"><p>Uw muur vertoont geen zichtbare problemen. U kunt direct verdergaan naar de volgende stap.</p></div>
+      <div class="options" id="behandeld-options">
+        <button class="option-btn" onclick="selectOption(4,'ja')"><span class="opt-title">Ja, volledig behandeld</span><span class="opt-desc">De problemen zijn volledig gesaneerd en de muur is droog en stabiel.</span></button>
+        <button class="option-btn" onclick="selectOption(4,'gedeeltelijk')"><span class="opt-title">Gedeeltelijk behandeld</span><span class="opt-desc">Sommige problemen zijn aangepakt maar niet volledig opgelost.</span></button>
+        <button class="option-btn blocked" onclick="selectOption(4,'nee')"><span class="opt-title">Nee, nog niet behandeld</span><span class="opt-desc">De problemen zijn nog aanwezig en niet gesaneerd.</span></button>
+      </div>
+      <div class="block-msg" id="block-msg-nee"><p><strong>Isolatie is op dit moment niet aangewezen.</strong> Bestaande vochtproblemen, schade of scheuren moeten volledig worden opgelost voordat u isoleert. Schakel eerst een gespecialiseerde aannemer in voor de sanering en raadpleeg uw IOED.</p></div>
+      <div class="options" id="droog-options" style="display:none;margin-top:1rem;">
+        <button class="option-btn" onclick="selectOption(4,'droog')"><span class="opt-title">Muur volledig droog</span><span class="opt-desc">De muur is na sanering volledig uitgedroogd. Geen vochtsporen meer aanwezig.</span></button>
+        <button class="option-btn" onclick="selectOption(4,'nog_vochtig')"><span class="opt-title">Muur nog vochtig</span><span class="opt-desc">De sanering is uitgevoerd maar de muur is nog niet volledig uitgedroogd.</span></button>
+      </div>
+      <div class="tool-nav"><button class="tool-back" onclick="goToStep(3)">← Terug</button><button class="tool-next" id="next-4" disabled onclick="goToStep(5)">Volgende stap →</button></div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="tool-step" id="step-5">
+      <p class="step-label">Stap 5 van 6</p>
+      <h2 class="step-q">Welke richting geeft uw gevel uit?</h2>
+      <p class="step-hint">De oriëntatie bepaalt de regenbelasting op uw muur. West- en zuidgerichte gevels vangen de meeste slagregen op.</p>
+      <div class="options">
+        <button class="option-btn" onclick="selectOption(5,'noord')"><span class="opt-title">Noord</span><span class="opt-desc">Laagste regenbelasting. Geen directe zoninstraling. Beide systemen zijn in principe mogelijk.</span></button>
+        <button class="option-btn" onclick="selectOption(5,'oost')"><span class="opt-title">Oost</span><span class="opt-desc">Matige regenbelasting. Ochtendzon. Beide systemen zijn in principe mogelijk.</span></button>
+        <button class="option-btn" onclick="selectOption(5,'west')"><span class="opt-title">West</span><span class="opt-desc">Hoge regenbelasting door heersende westenwind. Capillair actief systeem sterk aanbevolen.</span></button>
+        <button class="option-btn" onclick="selectOption(5,'zuid')"><span class="opt-title">Zuid</span><span class="opt-desc">Hoge zoninstraling, matige regenbelasting. Capillair actief systeem aanbevolen.</span></button>
+      </div>
+      <div class="tool-nav"><button class="tool-back" onclick="goToStep(4)">← Terug</button><button class="tool-next" id="next-5" disabled onclick="goToStep(6)">Volgende stap →</button></div>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="tool-step" id="step-6">
+      <p class="step-label">Stap 6 van 6</p>
+      <h2 class="step-q">Wat is de binnenafwerking van uw muur?</h2>
+      <p class="step-hint">De aanwezige binnenafwerking bepaalt of binnenisolatie mogelijk is en welke materialen in aanmerking komen.</p>
+      <div class="options">
+        <button class="option-btn" onclick="selectOption(6,'geen_afw')"><span class="opt-title">Geen afwerking</span><span class="opt-desc">Ruw metselwerk zichtbaar aan de binnenzijde.</span></button>
+        <button class="option-btn" onclick="selectOption(6,'gewone_pleister')"><span class="opt-title">Gewone pleister of gipslaag</span><span class="opt-desc">Standaard afwerking zonder erfgoedwaarde. Kan worden verwijderd.</span></button>
+        <button class="option-btn blocked" onclick="selectOption(6,'historisch')"><span class="opt-title">Historische afwerking</span><span class="opt-desc">Lambrisering, wandbespanning, decoratieve stuclagen of historische schilderingen.</span></button>
+      </div>
+      <div class="block-msg" id="block-msg-hist"><p><strong>Historische binnenafwerking aanwezig:</strong> Isolatie mag nooit worden aangebracht op of tegen waardevolle historische afwerkingen. Raadpleeg uw erfgoedconsulent of IOED voor de mogelijkheden in uw specifieke situatie.</p></div>
+      <div class="tool-nav"><button class="tool-back" onclick="goToStep(5)">← Terug</button><button class="tool-next" id="next-6" disabled onclick="showAdvice()">Bekijk mijn advies →</button></div>
+    </div>
+
+    <!-- ADVICE -->
+    <div class="tool-step" id="step-advice">
+      <div class="info-banner"><p><strong>Belangrijk:</strong> Dit advies is een eerste oriëntatie en vervangt geen professioneel advies. Een bouwfysische berekening is altijd noodzakelijk. Schakel een architect of erfgoedconsulent in met ervaring in historische gebouwen.</p></div>
+      <div id="advice-content"></div>
+      <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap;">
+        <button onclick="resetTool()" style="background:var(--blauw);color:#fff;border:none;padding:0.75rem 1.5rem;font-size:0.82rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Opnieuw beginnen</button>
+        <button onclick="showPage('ioed')" style="background:transparent;border:1px solid var(--border);padding:0.75rem 1.5rem;font-size:0.82rem;color:var(--slate);cursor:pointer;font-family:'DM Sans',sans-serif;">Vind uw IOED →</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-inner"><div><div class="footer-brand">Isolatie<span>.</span>Erfgoed</div><p class="footer-desc">Bachelorproef binnenisolatie historische gevels, Vlaanderen.</p></div><div class="footer-col"><h5>Pagina's</h5><ul><li><a onclick="showPage('home')">Home</a></li><li><a onclick="showPage('beschermingsstatus')">Beschermingsstatus</a></li><li><a onclick="showPage('systemen')">Isolatiesystemen</a></li><li><a onclick="showPage('materialen')">Materialen</a></li></ul></div></div>
+    <div class="footer-bottom"><p>© 2025 Isolatie.Erfgoed</p><p>Informatieve leidraad · Geen vervanging voor professioneel advies</p></div>
+  </footer>
+</div>
+
+<script>
+// PAGE NAV
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('nav-' + page).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// TOOL STATE
+const answers = {};
+
+function selectOption(step, value) {
+  answers[step] = value;
+  const container = document.getElementById('step-' + step).querySelectorAll('.option-btn');
+  container.forEach(btn => btn.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+
+  // Special logic step 4
+  if (step === 4) {
+    document.getElementById('block-msg-nee').classList.remove('visible');
+    document.getElementById('droog-options').style.display = 'none';
+    document.getElementById('next-4').disabled = true;
+    if (value === 'nee') {
+      document.getElementById('block-msg-nee').classList.add('visible');
+      return;
+    }
+    if (value === 'ja') {
+      document.getElementById('droog-options').style.display = 'flex';
+      document.getElementById('droog-options').style.flexDirection = 'column';
+      document.getElementById('droog-options').style.gap = '0.75rem';
+      return;
+    }
+    if (value === 'gedeeltelijk') {
+      document.getElementById('next-4').disabled = false;
+      return;
+    }
+    if (value === 'droog' || value === 'nog_vochtig') {
+      document.getElementById('next-4').disabled = false;
+      return;
+    }
+  }
+
+  // Special logic step 6
+  if (step === 6) {
+    document.getElementById('block-msg-hist').classList.remove('visible');
+    if (value === 'historisch') {
+      document.getElementById('block-msg-hist').classList.add('visible');
+      document.getElementById('next-6').disabled = true;
+      return;
+    }
+  }
+
+  // Special logic step 3
+  if (step === 3) {
+    if (value === 'geen_prob') {
+      document.getElementById('geen-prob-msg').style.display = 'block';
+      document.getElementById('behandeld-options').style.display = 'none';
+      answers[4] = 'geen_prob';
+    }
+  }
+
+  document.getElementById('next-' + step).disabled = false;
+}
+
+function goToStep(step) {
+  document.querySelectorAll('.tool-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-' + step).classList.add('active');
+  updateProgress(step);
+  // Reset step 4 display when going back
+  if (step === 3) {
+    document.getElementById('geen-prob-msg').style.display = 'none';
+    document.getElementById('behandeld-options').style.display = 'flex';
+    document.getElementById('behandeld-options').style.flexDirection = 'column';
+    document.getElementById('behandeld-options').style.gap = '0.75rem';
+  }
+  window.scrollTo(0, document.querySelector('.tool-wrapper').offsetTop - 80);
+}
+
+function updateProgress(currentStep) {
+  for (let i = 1; i <= 6; i++) {
+    const dot = document.getElementById('dot-' + i);
+    if (i < currentStep) dot.classList.add('done');
+    else if (i === currentStep) dot.classList.add('done');
+    else dot.classList.remove('done');
+  }
+}
+
+function showAdvice() {
+  document.querySelectorAll('.tool-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-advice').classList.add('active');
+  updateProgress(7);
+  generateAdvice();
+  window.scrollTo(0, document.querySelector('.tool-wrapper').offsetTop - 80);
+}
+
+function generateAdvice() {
+  const s = answers[1]; // beschermingsstatus
+  const d = answers[2]; // dikte
+  const p = answers[3]; // probleem
+  const b = answers[4]; // behandeld
+  const o = answers[5]; // oriëntatie
+  const a = answers[6]; // afwerking
+
+  let systeem = '';
+  let materialen = [];
+  let titel = '';
+  let uitleg = '';
+  let badge = 'groen';
+
+  // Bepaal systeem
+  const hoogRegenbelasting = (o === 'west' || o === 'zuid');
+  const zoutSchade = (p === 'zout');
+  const opstijgend = (p === 'opstijgend');
+  const regendoorslag = (p === 'regendoorslag');
+  const muurDroog = (b === 'droog' || b === 'geen_prob' || b === 'gedeeltelijk');
+
+  if (regendoorslag) {
+    systeem = 'capillair';
+  } else if (zoutSchade && b === 'droog') {
+    systeem = 'dampdicht';
+  } else if (opstijgend && b === 'droog') {
+    systeem = 'dampdicht';
+  } else if (hoogRegenbelasting) {
+    systeem = 'capillair';
+  } else if (d === 'dun') {
+    systeem = 'dampdicht';
+  } else {
+    systeem = 'capillair';
+  }
+
+  // Bepaal materialen
+  if (systeem === 'dampdicht') {
+    titel = 'Dampdicht systeem aanbevolen';
+    uitleg = 'Op basis van uw antwoorden is een dampdicht isolatiesysteem het meest aangewezen voor uw situatie. Dit systeem sluit de muur volledig af voor vocht en beschermt de constructie optimaal na een volledige sanering.';
+    materialen = [
+      { naam: 'Schuimglas (Foamglas)', info: 'λ 0,038 W/mK · ± 7 cm voor Rd 1,75 · 60–100 €/m² · Aanbevolen materiaal voor deze situatie', badge: 'groen' },
+      { naam: 'PIR-platen', info: 'λ 0,022 W/mK · ± 6 cm voor Rd 1,75 · 20–35 €/m² · Alternatief bij beperkte ruimte aan binnenzijde', badge: 'oranje' }
+    ];
+  } else {
+    titel = 'Capillair actief systeem aanbevolen';
+    uitleg = 'Op basis van uw antwoorden is een capillair actief isolatiesysteem het meest aangewezen. Dit systeem werkt samen met de historische muur en laat toe dat vocht gecontroleerd wordt opgenomen en herverdeeld, zonder dat het zich ophoopt in de constructie.';
+    materialen = [
+      { naam: 'Calciumsilicaat', info: 'λ 0,065 W/mK · ± 11 cm voor Rd 1,75 · 30–60 €/m² · Meest aanbevolen voor erfgoedcontext', badge: 'groen' },
+      { naam: 'Houtvezelplaten', info: 'λ 0,036–0,047 W/mK · ± 9 cm voor Rd 1,75 · 11–25 €/m² · Ecologisch alternatief', badge: 'oranje' },
+      { naam: 'Kalkhennepblokken', info: 'λ 0,071 W/mK · ± 20 cm · Meest compatibel met historische muren, meer ruimte nodig', badge: 'oranje' }
+    ];
+  }
+
+  // Aandachtspunten op basis van antwoorden
+  let aandachtspunten = [];
+  if (s === 'monument' || s === 'stadsgezicht') aandachtspunten.push('Uw gebouw is beschermd. Raadpleeg de erfgoedconsulent voor aanvang van de werken.');
+  if (s === 'vastgesteld') aandachtspunten.push('Uw gebouw staat op de vastgestelde inventaris. Informeer bij uw IOED over de specifieke geldende regels.');
+  if (d === 'dun') aandachtspunten.push('Uw muur is slechts één steen dik. Zorg voor een regendichte buitengevel voor aanvang.');
+  if (b === 'gedeeltelijk') aandachtspunten.push('De problemen zijn slechts gedeeltelijk behandeld. Zorg voor volledige sanering voor isolatie.');
+  if (b === 'nog_vochtig') aandachtspunten.push('De muur is nog niet volledig uitgedroogd. Wacht tot de muur volledig droog is voor u isoleert.');
+  if (a === 'gewone_pleister') aandachtspunten.push('Verwijder de bestaande pleisterlaag alvorens te isoleren. Reinig de ondergrond grondig.');
+
+  let html = `
+    <div class="advice-box">
+      <span class="advice-badge badge-${badge}">${systeem === 'dampdicht' ? 'Dampdicht' : 'Capillair actief'}</span>
+      <h2 class="advice-title">${titel}</h2>
+      <p class="advice-sub">${uitleg}</p>
+      <div class="advice-materials">
+        ${materialen.map(m => `<div class="advice-mat"><h4>${m.naam}</h4><p>${m.info}</p></div>`).join('')}
+      </div>
+    </div>`;
+
+  if (aandachtspunten.length > 0) {
+    html += `<div class="warning-banner"><p><strong>Aandachtspunten voor uw situatie:</strong></p><ul style="margin-top:0.5rem;padding-left:1.25rem;">
+      ${aandachtspunten.map(a => `<li style="font-size:0.85rem;color:var(--slate);margin-bottom:0.4rem;">${a}</li>`).join('')}
+    </ul></div>`;
+  }
+
+  html += `<div class="info-banner"><p>Gebruik de pagina's <strong><span onclick="showPage('systemen')" style="cursor:pointer;color:var(--rust);">Isolatiesystemen</span></strong> en <strong><span onclick="showPage('materialen')" style="cursor:pointer;color:var(--rust);">Materialen</span></strong> voor meer technische informatie. Contacteer uw IOED voor gratis pre-advies.</p></div>`;
+
+  document.getElementById('advice-content').innerHTML = html;
+}
+
+function resetTool() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.tool-next').forEach(b => b.disabled = true);
+  document.querySelectorAll('.block-msg').forEach(b => b.classList.remove('visible'));
+  document.getElementById('geen-prob-msg').style.display = 'none';
+  document.getElementById('behandeld-options').style.display = 'flex';
+  document.getElementById('droog-options').style.display = 'none';
+  for (let i = 1; i <= 6; i++) document.getElementById('dot-' + i).classList.remove('done');
+  document.getElementById('dot-1').classList.add('done');
+  goToStep(1);
+}
+</script>
+</body>
+</html>
