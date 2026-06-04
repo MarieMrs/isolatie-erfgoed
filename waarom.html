@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advies op maat — Isolatie.Erfgoed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,200;0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">Isolatie<span>.</span>Erfgoed</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="beschermingsstatus.html">Beschermingsstatus</a></li>
+    <li><a href="systemen.html">Isolatiesystemen</a></li>
+    <li><a href="materialen.html">Materialen</a></li>
+    <li><a href="ioed.html">Uw IOED</a></li>
+    <li><a href="waarom.html">Waarom isoleren?</a></li>
+    <li><a href="tool.html" class="active">Advies op maat</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="page-number">04</div>
+  <p class="page-eyebrow">Interactieve tool · Persoonlijk advies</p>
+  <h1 class="page-title">Advies op maat</h1>
+  <p class="page-subtitle">Beantwoord stap voor stap enkele vragen over uw gebouw en de toestand van uw muur. De tool geeft een persoonlijk advies over welk isolatiesysteem en welke materialen het meest aangewezen zijn.</p>
+</div>
+
+<div class="tool-wrapper">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Advies op maat</span>
+  </div>
+
+  <div class="info-banner">
+    <p><strong>Één gevel per keer:</strong> Deze tool helpt u de meest geschikte binnenisolatie te kiezen voor één specifieke massieve bakstenen gevel. Heeft u meerdere gevels, doorloop de tool dan voor elke gevel apart. Het advies vervangt geen gespecialiseerd advies.</p>
+  </div>
+
+  <div class="tool-progress" id="tool-progress">
+    <div class="progress-dot done" id="dot-1"></div>
+    <div class="progress-dot" id="dot-2"></div>
+    <div class="progress-dot" id="dot-3"></div>
+    <div class="progress-dot" id="dot-4"></div>
+    <div class="progress-dot" id="dot-5"></div>
+    <div class="progress-dot" id="dot-6"></div>
+  </div>
+
+  <!-- STAP 1 — Beschermingsstatus -->
+  <div class="tool-step active" id="step-1">
+    <p class="step-label">Stap 1 van 6</p>
+    <h2 class="step-q">Wat is de beschermingsstatus van uw gebouw?</h2>
+    <p class="step-hint">De beschermingsstatus bepaalt welke wettelijke vrijstellingen van toepassing zijn. Weet u het niet? Zoek uw adres op via <a href="https://geo.onroerenderfgoed.be" target="_blank" style="color:var(--rust);">geo.onroerenderfgoed.be</a>.</p>
+    <div class="options">
+      <button class="option-btn-simple" onclick="selectOption(1,'monument',this)">
+        <span class="opt-title">Beschermd monument</span>
+        <span class="opt-desc">Individueel beschermd gebouw. Alle gevels vrijgesteld van U-waarden. Vrijgesteld van renovatieplicht.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(1,'stadsgezicht',this)">
+        <span class="opt-title">Beschermd stads- of dorpsgezicht</span>
+        <span class="opt-desc">Gebouw maakt deel uit van een beschermd gebied. Zelfde vrijstellingen als beschermd monument.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(1,'vastgesteld',this)">
+        <span class="opt-title">Vastgesteld bouwkundig erfgoed</span>
+        <span class="opt-desc">Op de vastgestelde inventaris. Voorgevel vrijgesteld, andere gevels moeten aan EPB-eisen voldoen.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(1,'geen',this)">
+        <span class="opt-title">Geen officiële bescherming</span>
+        <span class="opt-desc">Historisch gebouw zonder erfgoedstatuut. Gewone EPB-eisen zijn van toepassing.</span>
+      </button>
+    </div>
+    <div class="tool-nav">
+      <div></div>
+      <button class="tool-next" id="next-1" disabled onclick="goToStep(2)">Volgende stap →</button>
+    </div>
+  </div>
+
+  <!-- STAP 2 — Muurdikte -->
+  <div class="tool-step" id="step-2">
+    <p class="step-label">Stap 2 van 6</p>
+    <h2 class="step-q">Hoe dik is uw muur?</h2>
+    <p class="step-hint">Meet de breedte van een vensterbank of dagkant van een raamopening van buitenzijde tot binnenzijde.</p>
+    <div class="options">
+      <button class="option-btn-simple" onclick="selectOption(2,'dun',this)">
+        <span class="opt-title">Één steen — ± 20 cm</span>
+        <span class="opt-desc">Dunne muur. Meestal niet regendicht. Binnenisolatie enkel met dampdicht systeem.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(2,'normaal',this)">
+        <span class="opt-title">Anderhalve steen — ± 30 cm</span>
+        <span class="opt-desc">Standaard dikte voor hogere verdiepingen. Doorgaans regendicht bij goede staat van voegen.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(2,'dik',this)">
+        <span class="opt-title">Twee stenen of meer — ± 40 cm</span>
+        <span class="opt-desc">Dikke muur, typisch voor gelijkvloerse verdieping. Regendicht. Alle systemen mogelijk.</span>
+      </button>
+    </div>
+    <div class="tool-nav">
+      <button class="tool-back" onclick="goToStep(1)">← Terug</button>
+      <button class="tool-next" id="next-2" disabled onclick="goToStep(3)">Volgende stap →</button>
+    </div>
+  </div>
+
+  <!-- STAP 3 — Schade (MET FOTO'S) -->
+  <div class="tool-step" id="step-3">
+    <p class="step-label">Stap 3 van 6</p>
+    <h2 class="step-q">Welke problemen zijn zichtbaar op uw muur?</h2>
+    <p class="step-hint">Bekijk de muur bij daglicht van dichtbij. Herkent u één van onderstaande problemen?</p>
+    <div class="options">
+      <button class="option-btn-simple" onclick="selectOption(3,'geen_prob',this)">
+        <span class="opt-title">Geen zichtbare problemen</span>
+        <span class="opt-desc">De muur is droog, geen vlekken, geen uitbloeiingen, geen scheuren.</span>
+      </button>
+      <button class="option-btn" onclick="selectOption(3,'opstijgend',this)">
+        <img src="img/opstijgend-vocht.jpg" alt="Opstijgend vocht" class="option-img">
+        <div class="option-text">
+          <span class="opt-title">Opstijgend vocht</span>
+          <span class="opt-desc">Donkere verkleuring onderaan de muur tot ± 1 m hoogte. Ongeacht het weer aanwezig.</span>
+        </div>
+      </button>
+      <button class="option-btn" onclick="selectOption(3,'regendoorslag',this)">
+        <img src="img/vocht-binnenmuur.jpg" alt="Regendoorslag" class="option-img">
+        <div class="option-text">
+          <span class="opt-title">Regendoorslag</span>
+          <span class="opt-desc">Loszittend of opbollend pleisterwerk, vochtplek die verschijnt na regen.</span>
+        </div>
+      </button>
+      <button class="option-btn" onclick="selectOption(3,'zout',this)">
+        <img src="img/zoutschade.jpg" alt="Zoutschade" class="option-img">
+        <div class="option-text">
+          <span class="opt-title">Zoutschade</span>
+          <span class="opt-desc">Witte uitbloeiingen, schilfering of afbrokkeling op het oppervlak van bakstenen of pleister.</span>
+        </div>
+      </button>
+      <button class="option-btn" onclick="selectOption(3,'scheuren',this)">
+        <img src="img/scheuren.jpg" alt="Scheuren in metselwerk" class="option-img">
+        <div class="option-text">
+          <span class="opt-title">Scheuren</span>
+          <span class="opt-desc">Zichtbare barsten in het metselwerk of de voegen.</span>
+        </div>
+      </button>
+      <button class="option-btn" onclick="selectOption(3,'geschilderd',this)">
+        <img src="img/geschilderde-gevel.jpg" alt="Geschilderde buitengevel" class="option-img">
+        <div class="option-text">
+          <span class="opt-title">Geschilderde buitengevel</span>
+          <span class="opt-desc">Verflaag op de buitenzijde. Bemoeilijkt uitdroging naar buiten toe.</span>
+        </div>
+      </button>
+    </div>
+    <div class="tool-nav">
+      <button class="tool-back" onclick="goToStep(2)">← Terug</button>
+      <button class="tool-next" id="next-3" disabled onclick="goToStep(4)">Volgende stap →</button>
+    </div>
+  </div>
+
+  <!-- STAP 4 — Behandeld? -->
+  <div class="tool-step" id="step-4">
+    <p class="step-label">Stap 4 van 6</p>
+    <h2 class="step-q">Zijn de vastgestelde problemen al behandeld?</h2>
+    <p class="step-hint">Isolatie mag nooit worden aangebracht op een muur met actieve schade.</p>
+    <div class="info-banner" id="geen-prob-msg" style="display:none;">
+      <p>Uw muur vertoont geen zichtbare problemen. U kunt direct verdergaan naar de volgende stap.</p>
+    </div>
+    <div class="options" id="behandeld-options">
+      <button class="option-btn-simple" onclick="selectOption(4,'ja',this)">
+        <span class="opt-title">Ja, volledig behandeld</span>
+        <span class="opt-desc">De problemen zijn volledig gesaneerd en de muur is droog en stabiel.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(4,'gedeeltelijk',this)">
+        <span class="opt-title">Gedeeltelijk behandeld</span>
+        <span class="opt-desc">Sommige problemen zijn aangepakt maar niet volledig opgelost.</span>
+      </button>
+      <button class="option-btn-simple blocked" onclick="selectOption(4,'nee',this)">
+        <span class="opt-title">Nee, nog niet behandeld</span>
+        <span class="opt-desc">De problemen zijn nog aanwezig en niet gesaneerd.</span>
+      </button>
+    </div>
+    <div class="block-msg" id="block-msg-nee">
+      <p><strong>Isolatie is op dit moment niet aangewezen.</strong> Bestaande vochtproblemen, schade of scheuren moeten volledig worden opgelost voordat u isoleert. Schakel eerst een gespecialiseerde aannemer in voor de sanering en raadpleeg uw <a href="ioed.html">IOED</a>.</p>
+    </div>
+    <div class="options" id="droog-options" style="display:none;">
+      <button class="option-btn-simple" onclick="selectOption(4,'droog',this)">
+        <span class="opt-title">Muur volledig droog</span>
+        <span class="opt-desc">De muur is na sanering volledig uitgedroogd. Geen zichtbare vochtsporen meer aanwezig.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(4,'nog_vochtig',this)">
+        <span class="opt-title">Muur nog vochtig</span>
+        <span class="opt-desc">De sanering is uitgevoerd maar de muur is nog niet volledig uitgedroogd.</span>
+      </button>
+    </div>
+    <div class="tool-nav">
+      <button class="tool-back" onclick="goToStep(3)">← Terug</button>
+      <button class="tool-next" id="next-4" disabled onclick="goToStep(5)">Volgende stap →</button>
+    </div>
+  </div>
+
+  <!-- STAP 5 — Oriëntatie -->
+  <div class="tool-step" id="step-5">
+    <p class="step-label">Stap 5 van 6</p>
+    <h2 class="step-q">Welke richting geeft uw gevel uit?</h2>
+    <p class="step-hint">De oriëntatie bepaalt de regenbelasting op uw muur. West- en zuidgerichte gevels vangen de meeste slagregen op. Gebruik het kompas op uw smartphone.</p>
+    <div class="options">
+      <button class="option-btn-simple" onclick="selectOption(5,'noord',this)">
+        <span class="opt-title">Noord</span>
+        <span class="opt-desc">Laagste regenbelasting. Geen directe zoninstraling. Beide systemen zijn mogelijk.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(5,'oost',this)">
+        <span class="opt-title">Oost</span>
+        <span class="opt-desc">Matige regenbelasting. Ochtendzon. Beide systemen zijn mogelijk.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(5,'west',this)">
+        <span class="opt-title">West</span>
+        <span class="opt-desc">Hoge regenbelasting door heersende westenwind. Capillair actief systeem sterk aanbevolen.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(5,'zuid',this)">
+        <span class="opt-title">Zuid</span>
+        <span class="opt-desc">Hoge zoninstraling, matige regenbelasting. Capillair actief systeem aanbevolen.</span>
+      </button>
+    </div>
+    <div class="tool-nav">
+      <button class="tool-back" onclick="goToStep(4)">← Terug</button>
+      <button class="tool-next" id="next-5" disabled onclick="goToStep(6)">Volgende stap →</button>
+    </div>
+  </div>
+
+  <!-- STAP 6 — Binnenafwerking -->
+  <div class="tool-step" id="step-6">
+    <p class="step-label">Stap 6 van 6</p>
+    <h2 class="step-q">Wat is de binnenafwerking van uw muur?</h2>
+    <p class="step-hint">De aanwezige binnenafwerking bepaalt of binnenisolatie mogelijk is en welke materialen in aanmerking komen.</p>
+    <div class="options">
+      <button class="option-btn-simple" onclick="selectOption(6,'geen_afw',this)">
+        <span class="opt-title">Geen afwerking</span>
+        <span class="opt-desc">Ruw metselwerk zichtbaar aan de binnenzijde.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(6,'gewone_pleister',this)">
+        <span class="opt-title">Gewone pleister of gipslaag</span>
+        <span class="opt-desc">Standaard afwerking zonder erfgoedwaarde. Kan worden verwijderd.</span>
+      </button>
+      <button class="option-btn-simple blocked" onclick="selectOption(6,'historisch',this)">
+        <span class="opt-title">Historische afwerking</span>
+        <span class="opt-desc">Lambrisering, wandbespanning, decoratieve stuclagen of historische schilderingen.</span>
+      </button>
+    </div>
+    <div class="block-msg" id="block-msg-hist">
+      <p><strong>Historische binnenafwerking aanwezig:</strong> Isolatie mag nooit worden aangebracht op of tegen waardevolle historische afwerkingen. Raadpleeg uw erfgoedconsulent of <a href="ioed.html">IOED</a> voor de mogelijkheden.</p>
+    </div>
+    <div class="tool-nav">
+      <button class="tool-back" onclick="goToStep(5)">← Terug</button>
+      <button class="tool-next" id="next-6" disabled onclick="showAdvice()">Bekijk mijn advies →</button>
+    </div>
+  </div>
+
+  <!-- ADVIES RESULTAAT -->
+  <div class="tool-step" id="step-advice">
+    <div class="info-banner">
+      <p><strong>Belangrijk:</strong> Dit advies is een eerste oriëntatie en vervangt geen professioneel advies. Een bouwfysische berekening is altijd noodzakelijk. Schakel een architect of erfgoedconsulent in met ervaring in historische gebouwen.</p>
+    </div>
+    <div id="advice-content"></div>
+    <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap;">
+      <button onclick="resetTool()" class="btn-primary">Opnieuw beginnen</button>
+      <a href="ioed.html" class="btn-secondary">Vind uw IOED →</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Isolatie<span>.</span>Erfgoed</div>
+      <p class="footer-desc">Bachelorproef binnenisolatie historische gevels, Vlaanderen.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Pagina's</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="beschermingsstatus.html">Beschermingsstatus</a></li>
+        <li><a href="systemen.html">Isolatiesystemen</a></li>
+        <li><a href="materialen.html">Materialen</a></li>
+        <li><a href="ioed.html">Uw IOED</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Isolatie.Erfgoed</p>
+    <p>Informatieve leidraad · Geen vervanging voor professioneel advies</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

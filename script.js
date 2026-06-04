@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Materialen — Isolatie.Erfgoed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,200;0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">Isolatie<span>.</span>Erfgoed</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="beschermingsstatus.html">Beschermingsstatus</a></li>
+    <li><a href="systemen.html">Isolatiesystemen</a></li>
+    <li><a href="materialen.html" class="active">Materialen</a></li>
+    <li><a href="ioed.html">Uw IOED</a></li>
+    <li><a href="waarom.html">Waarom isoleren?</a></li>
+    <li><a href="tool.html">Advies op maat</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="page-number">03</div>
+  <p class="page-eyebrow">Materialen · Eigenschappen · Vergelijking</p>
+  <h1 class="page-title">Materialen per systeem</h1>
+  <p class="page-subtitle">Een vergelijking van de voornaamste isolatiematerialen voor binnenisolatie van historische massieve bakstenen muren — met lambdawaarden, benodigde diktes, prijsindicaties en toepasbaarheid.</p>
+</div>
+
+<div class="content-wrapper">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Materialen</span>
+  </div>
+
+  <div class="info-banner">
+    <p><strong>Hoe lees u deze pagina?</strong> De materialen zijn ingedeeld per systeem. Bepaal eerst welk systeem aangewezen is via de pagina <a href="systemen.html">Isolatiesystemen</a> of via de <a href="tool.html">advies op maat tool</a>. De diktes zijn indicatief voor een warmteweerstand van Rd ≥ 1,75 m²K/W.</p>
+  </div>
+
+  <!-- DAMPDICHT -->
+  <div class="techniques-section">
+    <h2>Dampdicht systeem</h2>
+    <div class="technique-grid technique-grid-2">
+
+      <div class="mat-card">
+        <img src="img/foamglas.jpg" alt="Schuimglas Foamglas isolatieplaat">
+        <div class="mat-card-body">
+          <h4>Systeem A — Schuimglas (Foamglas)</h4>
+          <span class="mat-badge badge-aanbevolen">Aanbevolen materiaal</span>
+          <p>Schuimglas heeft een volledig gesloten celstructuur en is volledig waterdamp- en vochtdicht. Het is het enige isolatiemateriaal dat volkomen onvatbaar is voor vocht, zouten en micro-organismen.</p>
+          <p class="mat-specs"><strong>λ-waarde:</strong> 0,038 W/mK &nbsp;|&nbsp; <strong>Dikte Rd 1,75:</strong> ± 7 cm &nbsp;|&nbsp; <strong>Prijs:</strong> 60–100 €/m²</p>
+          <p class="mat-specs"><strong>Voordelen:</strong> Volledig vocht- en dampdicht, bestand tegen zouten, onbrandbaar (A1), levensduur +50 jaar.</p>
+          <p class="mat-specs"><strong>Aandachtspunten:</strong> Hoogste prijs, moeilijker te verwerken, ondergrond moet volledig droog zijn bij plaatsing.</p>
+        </div>
+      </div>
+
+      <div class="mat-card">
+        <img src="img/pir.jpg" alt="PIR isolatieplaten">
+        <div class="mat-card-body">
+          <h4>Systeem A — PIR-platen</h4>
+          <span class="mat-badge badge-alternatief">Alternatief bij beperkte ruimte</span>
+          <p>PIR is een hard schuimisolatiemateriaal met een zeer lage lambdawaarde. De platen zijn zelf dampremmend en vormen bij correcte verlijming en afdichting van naden een goed dampscherm.</p>
+          <p class="mat-specs"><strong>λ-waarde:</strong> 0,022 W/mK &nbsp;|&nbsp; <strong>Dikte Rd 1,75:</strong> ± 6 cm &nbsp;|&nbsp; <strong>Prijs:</strong> 20–35 €/m²</p>
+          <p class="mat-specs"><strong>Voordelen:</strong> Dunste optie, goede prijs-kwaliteit, eenvoudig te verwerken.</p>
+          <p class="mat-specs"><strong>Aandachtspunten:</strong> Brandbaar (B-C), naden zorgvuldig afdichten, niet bij actieve vochtproblemen.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CAPILLAIR ACTIEF -->
+  <div class="techniques-section">
+    <h2>Capillair actief systeem</h2>
+    <div class="warning-banner" style="margin-bottom:2rem;">
+      <p><strong>Opgelet:</strong> Sommige fabrikanten presenteren hun materiaal als capillair actief terwijl het eerder dampremmend is. Controleer altijd de productfiche. De totale isolatiewaarde daalt zo'n 10% door de vochtbuffering (WTCB-Contact 2019/5).</p>
+    </div>
+    <div class="technique-grid">
+
+      <div class="mat-card">
+        <img src="img/calciumsilicaat.jpg" alt="Calciumsilicaat isolatieplaat">
+        <div class="mat-card-body">
+          <h4>Systeem B — Calciumsilicaat</h4>
+          <span class="mat-badge badge-aanbevolen">Aanbevolen materiaal</span>
+          <p>Calciumsilicaatplaten zijn mineraal, capillair actief en dampopen. Ze verhogen de wandtemperatuur waardoor condensvorming en schimmelvorming worden vermeden.</p>
+          <p class="mat-specs"><strong>λ-waarde:</strong> 0,065 W/mK &nbsp;|&nbsp; <strong>Dikte Rd 1,75:</strong> ± 11 cm &nbsp;|&nbsp; <strong>Prijs:</strong> 30–60 €/m²</p>
+          <p class="mat-specs"><strong>Voordelen:</strong> Capillair actief en dampopen, brandveilig (A1), compatibel met kalkpleister.</p>
+          <p class="mat-specs"><strong>Toepasbaarheid:</strong> Breed toepasbaar bij historische massieve muren, ook bij lichte vochtbelasting. Meest aanbevolen voor erfgoedcontext.</p>
+        </div>
+      </div>
+
+      <div class="mat-card">
+        <img src="img/houtvezel.jpg" alt="Houtvezelplaten isolatie">
+        <div class="mat-card-body">
+          <h4>Systeem B — Houtvezelplaten</h4>
+          <span class="mat-badge badge-alternatief">Alternatief — ecologisch</span>
+          <p>Houtvezelplaten zijn biobased, dampopen en capillair actief. Ze hebben een hoge warmteopslagcapaciteit en goede geluidsdempende eigenschappen.</p>
+          <p class="mat-specs"><strong>λ-waarde:</strong> 0,036–0,047 W/mK &nbsp;|&nbsp; <strong>Dikte Rd 1,75:</strong> ± 9 cm &nbsp;|&nbsp; <strong>Prijs:</strong> 11–25 €/m²</p>
+          <p class="mat-specs"><strong>Voordelen:</strong> Ecologisch en biobased, goede vochtregulatie, betaalbaar, zomers comfort.</p>
+          <p class="mat-specs"><strong>Aandachtspunten:</strong> Niet bij hoge regenbelasting of vochtinfiltratie, vereist dampopen afwerking.</p>
+        </div>
+      </div>
+
+      <div class="mat-card">
+        <img src="img/kalkhennep.jpg" alt="Kalkhennepblokken isolatie">
+        <div class="mat-card-body">
+          <h4>Systeem B — Kalkhennepblokken</h4>
+          <span class="mat-badge badge-alternatief">Alternatief — meest compatibel</span>
+          <p>Kalkhennep is een mengsel van hennepscheven en kalk. Het is volledig dampopen, capillair actief en het meest compatibel met de bouwfysica van historische muren.</p>
+          <p class="mat-specs"><strong>λ-waarde:</strong> 0,071 W/mK &nbsp;|&nbsp; <strong>Dikte Rd 2,5:</strong> ± 20 cm &nbsp;|&nbsp; <strong>Prijs:</strong> Variabel</p>
+          <p class="mat-specs"><strong>Voordelen:</strong> Meest compatibel met historische muren, volledig dampopen, gezond binnenklimaat, ecologisch.</p>
+          <p class="mat-specs"><strong>Aandachtspunten:</strong> Grootste dikte vereist, niet bij regendoorslag, laagste isolatiewaarde per cm.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TABEL -->
+  <div class="data-table-section">
+    <h2>Overzichtstabel materialen</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Materiaal</th>
+          <th>Systeem</th>
+          <th>λ (W/mK)</th>
+          <th>Dikte Rd 1,75</th>
+          <th>Prijs incl. plaatsing</th>
+          <th>Brandklasse</th>
+          <th>Beste muursituatie</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Schuimglas (Foamglas)</td><td>Dampdicht</td><td>0,038</td><td>± 7 cm</td><td>60–100 €/m²</td><td>A1</td><td>Na sanering vocht/zout, droge muur</td></tr>
+        <tr><td>PIR-platen</td><td>Dampdicht</td><td>0,022</td><td>± 6 cm</td><td>20–35 €/m²</td><td>B–C</td><td>Droge muur, N/O oriëntatie, beperkte ruimte</td></tr>
+        <tr><td>Calciumsilicaat</td><td>Capillair actief</td><td>0,065</td><td>± 11 cm</td><td>30–60 €/m²</td><td>A1</td><td>Breed toepasbaar, lichte vochtbelasting</td></tr>
+        <tr><td>Houtvezelplaten</td><td>Capillair actief</td><td>0,036–0,047</td><td>± 9 cm</td><td>11–25 €/m²</td><td>D</td><td>Droge muur, N/O oriëntatie, ecologisch</td></tr>
+        <tr><td>Kalkhennepblokken</td><td>Capillair actief</td><td>0,071</td><td>± 20 cm</td><td>Variabel</td><td>B</td><td>Droge muur, voldoende ruimte beschikbaar</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warning-banner">
+    <p><strong>Prijzen zijn indicatief:</strong> De vermelde prijzen zijn richtprijzen inclusief plaatsing. Vraag altijd meerdere offertes op bij aannemers met aantoonbare ervaring in isolatie van historische gebouwen.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Isolatie<span>.</span>Erfgoed</div>
+      <p class="footer-desc">Bachelorproef binnenisolatie historische gevels, Vlaanderen.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Pagina's</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="systemen.html">Isolatiesystemen</a></li>
+        <li><a href="ioed.html">Uw IOED</a></li>
+        <li><a href="tool.html">Advies op maat</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Isolatie.Erfgoed</p>
+    <p>Informatieve leidraad · Geen vervanging voor professioneel advies</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
