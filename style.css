@@ -25,6 +25,7 @@ body {
   color: var(--tekst);
   font-size: 15px;
   line-height: 1.7;
+  text-align: justify;
 }
 
 /* =====================
@@ -41,6 +42,7 @@ nav {
   padding: 0 2rem;
   height: 60px;
   border-bottom: 2px solid var(--oranje);
+  text-align: left;
 }
 .nav-brand {
   font-family: 'DM Mono', monospace;
@@ -78,6 +80,7 @@ nav {
   padding: 6rem 4rem 5rem;
   position: relative;
   overflow: hidden;
+  text-align: left;
   /* Achtergrondafbeelding later toevoegen:
   background-image: url('img/jouwfoto.jpg');
   background-size: cover;
@@ -215,12 +218,14 @@ nav {
   color: var(--blauw);
   line-height: 1;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 .label {
   font-size: 0.78rem;
   color: var(--slate);
   line-height: 1.4;
   letter-spacing: 0.02em;
+  text-align: center;
 }
 
 /* =====================
@@ -266,6 +271,7 @@ nav {
   padding: 2.5rem;
   cursor: pointer;
   transition: background 0.2s;
+  text-align: left;
 }
 .card:hover { background: #F0EAE2; }
 .card-num {
