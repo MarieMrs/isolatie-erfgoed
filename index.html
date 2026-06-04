@@ -3,17 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beschermingsstatus — Isolatie.Erfgoed</title>
+  <title>Isolatie.Erfgoed — Binnenisolatie voor historische gevels in Vlaanderen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,200;0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-icon">⚠</div>
+    <h2>Lees dit voor u verder gaat</h2>
+    <p>De adviezen op deze site zijn indicatief en gebaseerd op een bachelorproef. Ze zijn <strong>geen vervanging voor gespecialiseerd advies</strong>. Schakel altijd een erkend architect, EPB-verslaggever of erfgoedconsulent in voor de definitieve materiaalkeuze en uitvoering.</p>
+    <p>Controleer bij aannemers uitdrukkelijk of zij aantoonbare ervaring hebben met isolatie van historische muren en vraag altijd referenties op.</p>
+    <button id="modal-btn">Ik heb bovenstaande gelezen — Verder naar de website →</button>
+  </div>
+</div>
+
+<!-- NAVIGATIE -->
 <nav>
   <a class="nav-brand" href="index.html">Isolatie<span>.</span>Erfgoed</a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="beschermingsstatus.html" class="active">Beschermingsstatus</a></li>
+    <li><a href="beschermingsstatus.html">Beschermingsstatus</a></li>
     <li><a href="systemen.html">Isolatiesystemen</a></li>
     <li><a href="materialen.html">Materialen</a></li>
     <li><a href="ioed.html">Uw IOED</a></li>
@@ -21,60 +34,82 @@
     <li><a href="tool.html">Advies op maat</a></li>
   </ul>
 </nav>
-<div class="page-hero">
-  <div class="page-number">01</div>
-  <p class="page-eyebrow">Juridisch kader · Vlaanderen</p>
-  <h1 class="page-title">Beschermingsstatus</h1>
-  <p class="page-subtitle">De beschermingsstatus van uw gebouw bepaalt welke EPB-vrijstellingen van toepassing zijn en hoeveel speelruimte u heeft bij de renovatie.</p>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Vlaanderen · Historisch Erfgoed · Binnenisolatie</p>
+  <h1>Isolatie van<br><span>Historische</span><br>Gevels in Vlaanderen</h1>
+  <p class="hero-sub">Een praktische leidraad voor eigenaars van historische gebouwen in Vlaanderen. Ontdek welk binnenisolatiesysteem en welk materiaal het meest aangewezen is voor uw specifieke muursituatie.</p>
+  <a href="tool.html" class="hero-tool-cta">Start de advies tool →</a>
+  <a href="#info" class="hero-more">Of lees eerst meer over de leidraad ↓</a>
 </div>
-<div class="content-wrapper">
-  <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Beschermingsstatus</span></div>
-  <div class="stat-row">
-    <div class="stat-cell"><div class="big">11.400</div><div class="label">Beschermde monumenten in Vlaanderen</div></div>
-    <div class="stat-cell"><div class="big">1.563</div><div class="label">Beschermde stads- en dorpsgezichten</div></div>
-    <div class="stat-cell"><div class="big">75.000+</div><div class="label">Objecten op de vastgestelde inventaris</div></div>
-    <div class="stat-cell"><div class="big">2023</div><div class="label">Jaar renovatieplicht van kracht</div></div>
-  </div>
-  <div class="info-banner"><p><strong>Weet u niet hoe uw pand geklasseerd is?</strong> Zoek uw adres op via het <a href="https://geo.onroerenderfgoed.be" target="_blank">Geoportaal van Onroerend Erfgoed</a> of via de <a href="https://inventaris.onroerenderfgoed.be" target="_blank">Inventaris Onroerend Erfgoed</a>.</p></div>
-  <div class="techniques-section">
-    <h2>De vier statuten en hun gevolgen</h2>
-    <div class="technique-grid technique-grid-2">
-      <div class="technique-item"><h4>Beschermd monument</h4><p>Uw gebouw is individueel beschermd omwille van zijn erfgoedwaarde. Alle gevels zijn vrijgesteld van de maximale U-waarden, enkel daken en vloeren moeten aan EPB-eisen voldoen. Ingrepen vereisen toestemming van de erfgoedconsulent. U bent vrijgesteld van de renovatieplicht.</p></div>
-      <div class="technique-item"><h4>Beschermd stads- of dorpsgezicht</h4><p>Uw gebouw maakt deel uit van een beschermd gebied maar is niet individueel beschermd. De vrijstellingen zijn identiek aan die voor beschermde monumenten. U bent eveneens vrijgesteld van de renovatieplicht.</p></div>
-      <div class="technique-item"><h4>Vastgesteld bouwkundig erfgoed</h4><p>Uw gebouw staat op de vastgestelde inventaris maar is niet beschermd. Enkel de gevels zichtbaar vanaf de openbare weg zijn vrijgesteld van maximale U-waarden. Voor andere gevels gelden de gewone EPB-eisen.</p></div>
-      <div class="technique-item"><h4>Geen officiële bescherming</h4><p>Uw gebouw heeft geen erfgoedstatuut maar is historisch. De gewone EPB-eisen zijn volledig van toepassing. Bij ingrijpende renovatie moeten alle muren voldoen aan een maximale U-waarde van 0,24 W/m²K.</p></div>
+
+<!-- KAARTEN -->
+<div class="content-wrapper" id="info">
+  <div class="cards-grid">
+    <div class="card" onclick="window.location='beschermingsstatus.html'">
+      <div class="card-num">01</div>
+      <h3>Beschermingsstatus en juridisch kader</h3>
+      <p>Wat betekent beschermd monument, vastgesteld erfgoed of beschermd stadsgezicht voor uw renovatieplicht? Ontdek welke EPB-vrijstellingen van toepassing zijn.</p>
+      <span class="card-link">Lees meer →</span>
+    </div>
+    <div class="card" onclick="window.location='systemen.html'">
+      <div class="card-num">02</div>
+      <h3>Isolatiesystemen vergelijken</h3>
+      <p>Buiten- en spouwisolatie zijn bij historische gevels in de meeste gevallen onmogelijk. Binnenisolatie blijft de enige optie — maar welk systeem past bij uw muur?</p>
+      <span class="card-link">Lees meer →</span>
+    </div>
+    <div class="card" onclick="window.location='materialen.html'">
+      <div class="card-num">03</div>
+      <h3>Materialen per systeem</h3>
+      <p>Schuimglas, calciumsilicaat, houtvezel, kalkhennep — welk materiaal werkt wanneer? Vergelijk lambdawaarden, diktes, prijzen en toepasbaarheid.</p>
+      <span class="card-link">Lees meer →</span>
+    </div>
+    <div class="card" onclick="window.location='ioed.html'">
+      <div class="card-num">04</div>
+      <h3>Uw IOED vinden</h3>
+      <p>Nog voor u een architect inschakelt kunt u gratis terecht bij uw Intergemeentelijke Onroerenderfgoeddienst voor een niet-bindend pre-advies.</p>
+      <span class="card-link">Vind uw IOED →</span>
     </div>
   </div>
-  <div class="regulation-box">
-    <h3>EPB-vrijstellingen per statuut — overzicht</h3>
-    <ul>
-      <li>Beschermd monument: alle gevels vrijgesteld van U-waarden</li>
-      <li>Beschermd monument: vrijstelling van ventilatie-eisen</li>
-      <li>Beschermd stads/dorpsgezicht: zelfde vrijstellingen als monument</li>
-      <li>Vastgesteld erfgoed: enkel voorgevel zichtbaar van straat vrijgesteld</li>
-      <li>Vastgesteld erfgoed: andere gevels moeten wel aan U-waarden voldoen</li>
-      <li>Alle statuten: daken en vloeren zijn nooit vrijgesteld</li>
-      <li>Individuele afwijking mogelijk als naleving technisch niet haalbaar is</li>
-    </ul>
-  </div>
-  <div class="process-section">
-    <h2>Wat betekent dit in de praktijk?</h2>
-    <div class="steps-list">
-      <div class="step-item"><div class="step-number">01</div><div class="step-content"><h4>Zoek uw beschermingsstatus op</h4><p>Raadpleeg het Geoportaal van Onroerend Erfgoed via geo.onroerenderfgoed.be. Vul uw adres in en download het perceelsrapport.</p></div></div>
-      <div class="step-item"><div class="step-number">02</div><div class="step-content"><h4>Raadpleeg uw erfgoedconsulent</h4><p>Bij beschermde monumenten en vastgesteld erfgoed is vroeg contact met de erfgoedconsulent sterk aanbevolen.</p></div></div>
-      <div class="step-item"><div class="step-number">03</div><div class="step-content"><h4>Individuele afwijking aanvragen</h4><p>Als naleving van de EPB-eisen technisch niet haalbaar is, kunt u een individuele vrijstelling aanvragen via de bouwheer of architect.</p></div></div>
-      <div class="step-item"><div class="step-number">04</div><div class="step-content"><h4>Kies uw isolatiestrategie</h4><p>Gebruik onze <a href="tool.html">advies op maat tool</a> voor een persoonlijk advies over het meest geschikte isolatiesysteem.</p></div></div>
-    </div>
-  </div>
-  <div class="warning-banner"><p><strong>Opgelet bij aannemers:</strong> Zorg dat de aannemer aantoonbare ervaring heeft met isolatiewerken aan historische gebouwen. Vraag referenties op en controleer of ze bekend zijn met de specifieke bouwfysica van massieve bakstenen muren.</p></div>
 </div>
+
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div><div class="footer-brand">Isolatie<span>.</span>Erfgoed</div><p class="footer-desc">Bachelorproef binnenisolatie historische gevels, Vlaanderen.</p></div>
-    <div class="footer-col"><h5>Pagina's</h5><ul><li><a href="index.html">Home</a></li><li><a href="systemen.html">Isolatiesystemen</a></li><li><a href="materialen.html">Materialen</a></li><li><a href="tool.html">Advies op maat</a></li></ul></div>
+    <div>
+      <div class="footer-brand">Isolatie<span>.</span>Erfgoed</div>
+      <p class="footer-desc">Een informatieve leidraad over binnenisolatie voor historische massieve bakstenen gevels in Vlaanderen. Ontwikkeld in het kader van een bachelorproef in samenwerking met Owens Corning Foamglas.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Informatie</h5>
+      <ul>
+        <li><a href="beschermingsstatus.html">Beschermingsstatus</a></li>
+        <li><a href="systemen.html">Isolatiesystemen</a></li>
+        <li><a href="materialen.html">Materialen</a></li>
+        <li><a href="ioed.html">Uw IOED vinden</a></li>
+        <li><a href="waarom.html">Waarom isoleren?</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Tool</h5>
+      <ul><li><a href="tool.html">Advies op maat</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h5>Externe links</h5>
+      <ul>
+        <li><a href="https://geo.onroerenderfgoed.be" target="_blank">Geoportaal Onroerend Erfgoed</a></li>
+        <li><a href="https://inventaris.onroerenderfgoed.be" target="_blank">Inventaris Onroerend Erfgoed</a></li>
+        <li><a href="https://www.vlaanderen.be/epb-pedia" target="_blank">EPB-pedia Vlaanderen</a></li>
+      </ul>
+    </div>
   </div>
-  <div class="footer-bottom"><p>© 2025 Isolatie.Erfgoed</p><p>Informatieve leidraad · Geen vervanging voor professioneel advies</p></div>
+  <div class="footer-bottom">
+    <p>© 2025 Isolatie.Erfgoed — Bachelorproef Binnenisolatie Historische Gevels</p>
+    <p>Informatieve leidraad · Geen vervanging voor professioneel advies</p>
+  </div>
 </footer>
+
 <script src="script.js"></script>
 </body>
 </html>

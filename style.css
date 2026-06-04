@@ -1,237 +1,884 @@
 /* =====================
-   NAVIGATIE ACTIVE STATE
+   CSS VARIABELEN
    ===================== */
-function setActiveNav() {
-  const page = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.classList.remove('active');
-    const href = a.getAttribute('href');
-    if (href === page || (page === '' && href === 'index.html')) {
-      a.classList.add('active');
-    }
-  });
+:root {
+  --blauw: #1A3A5C;
+  --blauw-mid: #2C5282;
+  --rust: #C0392B;
+  --oranje: #D35400;
+  --clay: #8B6914;
+  --slate: #4A5568;
+  --licht: #F7F4EF;
+  --wit: #FFFFFF;
+  --border: #E2D9CE;
+  --tekst: #2D2D2D;
 }
-document.addEventListener('DOMContentLoaded', setActiveNav);
 
 /* =====================
-   MODAL (enkel op homepage)
+   RESET & BASE
    ===================== */
-function initModal() {
-  const modal = document.getElementById('modal');
-  if (!modal) return;
-  const btn = document.getElementById('modal-btn');
-  if (btn) btn.addEventListener('click', () => modal.style.display = 'none');
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--licht);
+  color: var(--tekst);
+  font-size: 15px;
+  line-height: 1.7;
 }
-document.addEventListener('DOMContentLoaded', initModal);
 
 /* =====================
-   TOOL LOGICA
+   NAVIGATIE
    ===================== */
-const toolAnswers = {};
-let currentStep = 1;
-const totalSteps = 6;
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--blauw);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  border-bottom: 2px solid var(--oranje);
+}
+.nav-brand {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.1rem;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.nav-brand span { color: var(--oranje); }
+.nav-links {
+  display: flex;
+  gap: 0;
+  list-style: none;
+}
+.nav-links a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s;
+  display: block;
+}
+.nav-links a:hover,
+.nav-links a.active { color: #fff; }
+.nav-links a.active { border-bottom: 2px solid var(--oranje); }
 
-function selectOption(step, value, element) {
-  toolAnswers[step] = value;
+/* =====================
+   HERO
+   ===================== */
+.hero {
+  background: var(--blauw);
+  padding: 6rem 4rem 5rem;
+  position: relative;
+  overflow: hidden;
+  /* Achtergrondafbeelding later toevoegen:
+  background-image: url('img/jouwfoto.jpg');
+  background-size: cover;
+  background-position: center; */
+}
+.hero::before {
+  content: 'ERF';
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  font-family: 'Source Serif 4', serif;
+  font-size: 14rem;
+  font-weight: 200;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--oranje);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'Source Serif 4', serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 200;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+.hero h1 span {
+  color: var(--oranje);
+  font-style: italic;
+}
+.hero-sub {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.7);
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+.hero-tool-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--oranje);
+  color: #fff;
+  padding: 1.1rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+  margin-bottom: 1rem;
+}
+.hero-tool-cta:hover { background: #B84700; }
+.hero-more {
+  display: block;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.75rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.hero-more:hover { color: rgba(255,255,255,0.8); }
 
-  // Deselect alle opties in deze stap
-  const container = element.closest('.options');
-  if (container) {
-    container.querySelectorAll('.option-btn, .option-btn-simple').forEach(btn => {
-      btn.classList.remove('selected');
-    });
-  }
-  element.classList.add('selected');
-
-  // Speciale logica stap 3 (geen problemen)
-  if (step === 3 && value === 'geen_prob') {
-    const geenProbMsg = document.getElementById('geen-prob-msg');
-    const behandeldOptions = document.getElementById('behandeld-options');
-    if (geenProbMsg) geenProbMsg.style.display = 'block';
-    if (behandeldOptions) behandeldOptions.style.display = 'none';
-    toolAnswers[4] = 'geen_prob';
-  }
-
-  // Speciale logica stap 4
-  if (step === 4) {
-    const blockMsgNee = document.getElementById('block-msg-nee');
-    const droogOptions = document.getElementById('droog-options');
-    const nextBtn = document.getElementById('next-4');
-
-    if (blockMsgNee) blockMsgNee.classList.remove('visible');
-    if (droogOptions) droogOptions.style.display = 'none';
-    if (nextBtn) nextBtn.disabled = true;
-
-    if (value === 'nee') {
-      if (blockMsgNee) blockMsgNee.classList.add('visible');
-      return;
-    }
-    if (value === 'ja') {
-      if (droogOptions) { droogOptions.style.display = 'flex'; droogOptions.style.flexDirection = 'column'; droogOptions.style.gap = '0.75rem'; }
-      return;
-    }
-    if (value === 'droog' || value === 'nog_vochtig' || value === 'gedeeltelijk') {
-      if (nextBtn) nextBtn.disabled = false;
-      return;
-    }
-  }
-
-  // Speciale logica stap 6
-  if (step === 6) {
-    const blockMsgHist = document.getElementById('block-msg-hist');
-    const nextBtn = document.getElementById('next-6');
-    if (blockMsgHist) blockMsgHist.classList.remove('visible');
-    if (value === 'historisch') {
-      if (blockMsgHist) blockMsgHist.classList.add('visible');
-      if (nextBtn) nextBtn.disabled = true;
-      return;
-    }
-  }
-
-  // Activeer volgende knop
-  const nextBtn = document.getElementById(`next-${step}`);
-  if (nextBtn) nextBtn.disabled = false;
+/* =====================
+   PAGE HERO (subpagina's)
+   ===================== */
+.page-hero {
+  background: var(--blauw);
+  padding: 4rem 4rem 3rem;
+  position: relative;
+}
+.page-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--oranje);
+}
+.page-number {
+  font-family: 'DM Mono', monospace;
+  font-size: 4rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.06);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.page-eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--oranje);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.page-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 200;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.page-subtitle {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.7);
+  max-width: 680px;
+  line-height: 1.7;
 }
 
-function goToStep(step) {
-  document.querySelectorAll('.tool-step').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById(`step-${step}`);
-  if (target) target.classList.add('active');
-  currentStep = step;
-  updateProgress(step);
-
-  // Reset stap 3/4 weergave bij terugkeren
-  if (step === 3) {
-    const geenProbMsg = document.getElementById('geen-prob-msg');
-    const behandeldOptions = document.getElementById('behandeld-options');
-    if (geenProbMsg) geenProbMsg.style.display = 'none';
-    if (behandeldOptions) { behandeldOptions.style.display = 'flex'; behandeldOptions.style.flexDirection = 'column'; behandeldOptions.style.gap = '0.75rem'; }
-  }
-
-  // Scroll naar tool
-  const toolWrapper = document.querySelector('.tool-wrapper');
-  if (toolWrapper) window.scrollTo(0, toolWrapper.offsetTop - 80);
+/* =====================
+   STATISTIEKEN
+   ===================== */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--border);
+}
+.stat-row-3 { grid-template-columns: repeat(3, 1fr); }
+.stat-cell {
+  padding: 2rem;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.stat-cell:last-child { border-right: none; }
+.big {
+  font-family: 'Source Serif 4', serif;
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: var(--blauw);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.label {
+  font-size: 0.78rem;
+  color: var(--slate);
+  line-height: 1.4;
+  letter-spacing: 0.02em;
 }
 
-function updateProgress(step) {
-  for (let i = 1; i <= totalSteps; i++) {
-    const dot = document.getElementById(`dot-${i}`);
-    if (!dot) continue;
-    if (i <= step) dot.classList.add('done');
-    else dot.classList.remove('done');
-  }
+/* =====================
+   CONTENT WRAPPER
+   ===================== */
+.content-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
 }
 
-function showAdvice() {
-  document.querySelectorAll('.tool-step').forEach(s => s.classList.remove('active'));
-  const adviceStep = document.getElementById('step-advice');
-  if (adviceStep) adviceStep.classList.add('active');
-  updateProgress(7);
-  generateAdvice();
-  const toolWrapper = document.querySelector('.tool-wrapper');
-  if (toolWrapper) window.scrollTo(0, toolWrapper.offsetTop - 80);
+/* =====================
+   BREADCRUMB
+   ===================== */
+.breadcrumb {
+  font-size: 0.78rem;
+  color: var(--slate);
+  margin-bottom: 2.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.breadcrumb a {
+  color: var(--blauw);
+  text-decoration: none;
+  cursor: pointer;
+}
+.breadcrumb span:last-child { color: var(--tekst); }
+
+/* =====================
+   KAARTEN (homepage)
+   ===================== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  margin: 3rem 0;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.card {
+  background: var(--wit);
+  padding: 2.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.card:hover { background: #F0EAE2; }
+.card-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 3rem;
+  font-weight: 500;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.card h3 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--blauw);
+  margin-bottom: 0.75rem;
+}
+.card p {
+  font-size: 0.85rem;
+  color: var(--slate);
+  line-height: 1.65;
+}
+.card-link {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--oranje);
+  margin-top: 1.25rem;
+  display: inline-block;
 }
 
-function generateAdvice() {
-  const o = toolAnswers[5]; // oriëntatie
-  const p = toolAnswers[3]; // probleem
-  const b = toolAnswers[4]; // behandeld
-  const d = toolAnswers[2]; // dikte
-  const s = toolAnswers[1]; // statuut
+/* =====================
+   SECTIONS
+   ===================== */
+.techniques-section { margin: 3rem 0; }
+.techniques-section h2 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--blauw);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.technique-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.technique-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.technique-item {
+  background: var(--wit);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+}
+.technique-item h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--blauw);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.technique-item p {
+  font-size: 0.85rem;
+  color: var(--slate);
+  line-height: 1.65;
+}
+.technique-item p + p { margin-top: 0.5rem; }
 
-  // Bepaal systeem
-  const hoogRegenbelasting = (o === 'west' || o === 'zuid');
-  const regendoorslag = (p === 'regendoorslag');
-  const zoutSchade = (p === 'zout');
-  const opstijgend = (p === 'opstijgend');
+/* =====================
+   MATERIAAL KAARTEN (met foto)
+   ===================== */
+.mat-card {
+  background: var(--wit);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.mat-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+.mat-card-body { padding: 1.5rem; }
+.mat-card-body h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--blauw);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.mat-badge {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+.badge-aanbevolen { background: #2F855A; color: #fff; }
+.badge-alternatief { background: var(--clay); color: #fff; }
+.mat-specs {
+  font-size: 0.8rem;
+  color: var(--slate);
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+.mat-specs strong { color: var(--tekst); }
 
-  let systeem = '';
-  if (regendoorslag) {
-    systeem = 'capillair';
-  } else if ((zoutSchade || opstijgend) && b === 'droog') {
-    systeem = 'dampdicht';
-  } else if (hoogRegenbelasting) {
-    systeem = 'capillair';
-  } else if (d === 'dun') {
-    systeem = 'dampdicht';
-  } else {
-    systeem = 'capillair';
-  }
+/* =====================
+   BANNERS
+   ===================== */
+.info-banner {
+  background: #EBF4FF;
+  border-left: 4px solid var(--blauw-mid);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  font-size: 0.86rem;
+  color: var(--slate);
+  line-height: 1.65;
+}
+.warning-banner {
+  background: #FFF5F0;
+  border-left: 4px solid var(--rust);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  font-size: 0.86rem;
+  color: var(--slate);
+  line-height: 1.65;
+}
+.info-banner a,
+.warning-banner a { color: var(--rust); }
 
-  // Materialen per systeem
-  const materialenDampdicht = [
-    { naam: 'Schuimglas (Foamglas)', img: 'img/foamglas.jpg', badge: 'aanbevolen', info: 'λ 0,038 W/mK · ± 7 cm voor Rd 1,75 · 60–100 €/m² · Volledig vocht- en dampdicht, onbrandbaar' },
-    { naam: 'PIR-platen', img: 'img/pir.jpg', badge: 'alternatief', info: 'λ 0,022 W/mK · ± 6 cm voor Rd 1,75 · 20–35 €/m² · Dunste optie bij beperkte ruimte' }
-  ];
-  const materialenCapillair = [
-    { naam: 'Calciumsilicaat', img: 'img/calciumsilicaat.jpg', badge: 'aanbevolen', info: 'λ 0,065 W/mK · ± 11 cm voor Rd 1,75 · 30–60 €/m² · Meest aanbevolen voor erfgoedcontext' },
-    { naam: 'Houtvezelplaten', img: 'img/houtvezel.jpg', badge: 'alternatief', info: 'λ 0,036–0,047 W/mK · ± 9 cm voor Rd 1,75 · 11–25 €/m² · Ecologisch alternatief' },
-    { naam: 'Kalkhennepblokken', img: 'img/kalkhennep.jpg', badge: 'alternatief', info: 'λ 0,071 W/mK · ± 20 cm · Meest compatibel met historische muren' }
-  ];
-
-  const materialen = systeem === 'dampdicht' ? materialenDampdicht : materialenCapillair;
-  const systeemTitel = systeem === 'dampdicht' ? 'Dampdicht systeem aanbevolen' : 'Capillair actief systeem aanbevolen';
-  const systeemUitleg = systeem === 'dampdicht'
-    ? 'Op basis van uw antwoorden is een dampdicht isolatiesysteem het meest aangewezen. Dit systeem sluit de muur volledig af voor vocht en beschermt de constructie optimaal na een volledige sanering.'
-    : 'Op basis van uw antwoorden is een capillair actief isolatiesysteem het meest aangewezen. Dit systeem werkt samen met de historische muur en laat toe dat vocht gecontroleerd wordt opgenomen en herverdeeld.';
-
-  // Aandachtspunten
-  const aandachtspunten = [];
-  if (s === 'monument' || s === 'stadsgezicht') aandachtspunten.push('Uw gebouw is beschermd. Raadpleeg de erfgoedconsulent voor aanvang van de werken.');
-  if (s === 'vastgesteld') aandachtspunten.push('Uw gebouw staat op de vastgestelde inventaris. Informeer bij uw IOED over de specifieke geldende regels.');
-  if (d === 'dun') aandachtspunten.push('Uw muur is slechts één steen dik. Zorg voor een volledig regendichte buitengevel voor aanvang.');
-  if (b === 'gedeeltelijk') aandachtspunten.push('De problemen zijn slechts gedeeltelijk behandeld. Zorg voor volledige sanering voor isolatie.');
-  if (b === 'nog_vochtig') aandachtspunten.push('De muur is nog niet volledig uitgedroogd. Wacht tot de muur volledig droog is voor u isoleert.');
-
-  // HTML genereren
-  let html = `
-    <div class="advice-box">
-      <span class="advice-badge badge-groen">${systeem === 'dampdicht' ? 'Dampdicht' : 'Capillair actief'}</span>
-      <h2 class="advice-title">${systeemTitel}</h2>
-      <p class="advice-sub">${systeemUitleg}</p>
-      <div class="advice-materials">
-        ${materialen.map(m => `
-          <div class="advice-mat">
-            <img src="${m.img}" alt="${m.naam}">
-            <div class="advice-mat-body">
-              <h4>${m.naam}</h4>
-              <p>${m.info}</p>
-            </div>
-          </div>`).join('')}
-      </div>
-    </div>`;
-
-  if (aandachtspunten.length > 0) {
-    html += `<div class="warning-banner">
-      <p><strong>Aandachtspunten voor uw situatie:</strong></p>
-      <ul style="margin-top:0.5rem;padding-left:1.25rem;">
-        ${aandachtspunten.map(a => `<li style="font-size:0.85rem;color:var(--slate);margin-bottom:0.4rem;">${a}</li>`).join('')}
-      </ul>
-    </div>`;
-  }
-
-  html += `<div class="info-banner"><p>Bekijk de pagina <strong><a href="materialen.html">Materialen</a></strong> voor meer technische informatie. Contacteer uw <strong><a href="ioed.html">IOED</a></strong> voor gratis pre-advies.</p></div>`;
-
-  const adviceContent = document.getElementById('advice-content');
-  if (adviceContent) adviceContent.innerHTML = html;
+/* =====================
+   REGULATION BOX
+   ===================== */
+.regulation-box {
+  background: var(--blauw);
+  padding: 2rem;
+  margin: 2rem 0;
+}
+.regulation-box h3 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: #fff;
+  margin-bottom: 1.25rem;
+}
+.regulation-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.regulation-box li {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.8);
+  padding-left: 1.25rem;
+  position: relative;
+  line-height: 1.5;
+}
+.regulation-box li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--oranje);
 }
 
-function resetTool() {
-  Object.keys(toolAnswers).forEach(k => delete toolAnswers[k]);
-  document.querySelectorAll('.option-btn, .option-btn-simple').forEach(b => b.classList.remove('selected'));
-  document.querySelectorAll('.tool-next').forEach(b => b.disabled = true);
-  document.querySelectorAll('.block-msg').forEach(b => b.classList.remove('visible'));
-  const geenProbMsg = document.getElementById('geen-prob-msg');
-  const behandeldOptions = document.getElementById('behandeld-options');
-  const droogOptions = document.getElementById('droog-options');
-  if (geenProbMsg) geenProbMsg.style.display = 'none';
-  if (behandeldOptions) { behandeldOptions.style.display = 'flex'; behandeldOptions.style.flexDirection = 'column'; behandeldOptions.style.gap = '0.75rem'; }
-  if (droogOptions) droogOptions.style.display = 'none';
-  for (let i = 1; i <= totalSteps; i++) {
-    const dot = document.getElementById(`dot-${i}`);
-    if (dot) { dot.classList.remove('done'); }
-  }
-  const dot1 = document.getElementById('dot-1');
-  if (dot1) dot1.classList.add('done');
-  goToStep(1);
+/* =====================
+   PROCESS STEPS
+   ===================== */
+.process-section { margin: 3rem 0; }
+.process-section h2 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--blauw);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.steps-list { display: flex; flex-direction: column; gap: 1rem; }
+.step-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  background: var(--wit);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+}
+.step-number {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--oranje);
+  min-width: 40px;
+  line-height: 1;
+}
+.step-content h4 {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--blauw);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.step-content p {
+  font-size: 0.85rem;
+  color: var(--slate);
+  line-height: 1.65;
+}
+
+/* =====================
+   INTRO COLS
+   ===================== */
+.intro-cols {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  margin: 2.5rem 0;
+}
+.intro-sidebar h3 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--blauw);
+  margin-bottom: 0.75rem;
+}
+.intro-sidebar p,
+.intro-body p {
+  font-size: 0.88rem;
+  color: var(--slate);
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
+/* =====================
+   TABEL
+   ===================== */
+.data-table-section { margin: 3rem 0; }
+.data-table-section h2 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--blauw);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+thead { background: var(--blauw); }
+thead th {
+  color: #fff;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+tbody tr { border-bottom: 1px solid var(--border); }
+tbody tr:nth-child(even) { background: rgba(26,58,92,0.03); }
+tbody td {
+  padding: 0.85rem 1rem;
+  color: var(--slate);
+  vertical-align: top;
+}
+
+/* =====================
+   WARMTEVERLIES
+   ===================== */
+.warmte-section {
+  background: var(--wit);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  margin: 3rem 0;
+}
+.warmte-section h3 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--blauw);
+  margin-bottom: 0.5rem;
+}
+.warmte-bars { margin: 1.5rem 0; display: flex; flex-direction: column; gap: 0.75rem; }
+.warmte-bar { display: flex; align-items: center; gap: 1rem; }
+.bar-label { font-size: 0.8rem; color: var(--slate); min-width: 160px; }
+.bar-track { flex: 1; height: 8px; background: var(--border); overflow: hidden; }
+.bar-fill { height: 100%; background: var(--blauw); }
+.bar-fill.highlight { background: var(--oranje); }
+.bar-pct { font-size: 0.8rem; font-weight: 600; color: var(--blauw); min-width: 36px; text-align: right; }
+
+/* =====================
+   TOOL
+   ===================== */
+.tool-wrapper { max-width: 700px; margin: 3rem auto; padding: 0 2rem; }
+.tool-progress { display: flex; gap: 4px; margin-bottom: 2rem; }
+.progress-dot { height: 3px; flex: 1; background: var(--border); transition: background 0.3s; }
+.progress-dot.done { background: var(--oranje); }
+.tool-step { display: none; }
+.tool-step.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.step-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--oranje);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.step-q {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--blauw);
+  margin-bottom: 0.5rem;
+}
+.step-hint {
+  font-size: 0.82rem;
+  color: var(--slate);
+  margin-bottom: 1.75rem;
+  line-height: 1.6;
+}
+.options { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+
+/* Optie met foto */
+.option-btn {
+  background: var(--wit);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+.option-btn:hover { border-color: var(--blauw); background: #EBF4FF; }
+.option-btn.selected { border-color: var(--blauw); background: #EBF4FF; }
+.option-btn.blocked { border-color: var(--rust); background: #FFF5F0; cursor: default; }
+.option-img {
+  width: 90px;
+  min-width: 90px;
+  height: 80px;
+  object-fit: cover;
+  display: block;
+}
+.option-text { padding: 0.9rem 1.2rem; }
+.opt-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--blauw);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.opt-desc {
+  font-size: 0.8rem;
+  color: var(--slate);
+  display: block;
+  line-height: 1.5;
+}
+
+/* Optie zonder foto */
+.option-btn-simple {
+  background: var(--wit);
+  border: 1.5px solid var(--border);
+  padding: 1.1rem 1.5rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.option-btn-simple:hover { border-color: var(--blauw); background: #EBF4FF; }
+.option-btn-simple.selected { border-color: var(--blauw); background: #EBF4FF; }
+.option-btn-simple.blocked { border-color: var(--rust); background: #FFF5F0; cursor: default; }
+
+.tool-nav { display: flex; gap: 1rem; justify-content: space-between; align-items: center; }
+.tool-back {
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: var(--slate);
+  font-family: 'DM Sans', sans-serif;
+}
+.tool-next {
+  background: var(--blauw);
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.75rem;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s;
+}
+.tool-next:hover { background: var(--oranje); }
+.tool-next:disabled { background: var(--border); color: var(--slate); cursor: not-allowed; }
+.block-msg {
+  background: #FFF5F0;
+  border-left: 4px solid var(--rust);
+  padding: 1.25rem 1.5rem;
+  margin: 1rem 0;
+  font-size: 0.86rem;
+  color: var(--slate);
+  line-height: 1.65;
+  display: none;
+}
+.block-msg.visible { display: block; }
+
+/* =====================
+   ADVIES RESULTAAT
+   ===================== */
+.advice-box { background: var(--blauw); padding: 2.5rem; margin: 2rem 0; }
+.advice-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  margin-bottom: 1rem;
+}
+.badge-groen { background: #2F855A; color: #fff; }
+.badge-oranje { background: var(--oranje); color: #fff; }
+.advice-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.8rem;
+  font-weight: 200;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+.advice-sub {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.advice-materials {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.advice-mat {
+  background: rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+.advice-mat img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+.advice-mat-body { padding: 1rem; border-left: 3px solid var(--oranje); }
+.advice-mat h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+.advice-mat p {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+}
+
+/* =====================
+   FOOTER
+   ===================== */
+footer {
+  background: var(--blauw);
+  padding: 3rem 4rem 1.5rem;
+  margin-top: 4rem;
+  border-top: 3px solid var(--oranje);
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+}
+.footer-brand {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+.footer-brand span { color: var(--oranje); }
+.footer-desc {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+.footer-col h5 {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 1rem;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-col li a {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+.footer-col li a:hover { color: #fff; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+.footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
+
+/* =====================
+   BUTTONS
+   ===================== */
+.btn-primary {
+  background: var(--oranje);
+  color: #fff;
+  padding: 0.85rem 2rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary:hover { background: #B84700; }
+.btn-secondary {
+  background: transparent;
+  color: var(--blauw);
+  padding: 0.85rem 2rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-secondary:hover { border-color: var(--blauw); }
+
+/* =====================
+   MODAL
+   ===================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.modal-box {
+  background: var(--wit);
+  max-width: 540px;
+  width: 100%;
+  padding: 3rem;
+  border-top: 4px solid var(--oranje);
+}
+.modal-icon { font-size: 2rem; margin-bottom: 1rem; }
+.modal-box h2 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--blauw);
+  margin-bottom: 1rem;
+}
+.modal-box p {
+  font-size: 0.88rem;
+  color: var(--slate);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.modal-box button {
+  background: var(--blauw);
+  color: #fff;
+  border: none;
+  padding: 0.85rem 2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+.modal-box button:hover { background: var(--oranje); }
+
+/* =====================
+   RESPONSIVE
+   ===================== */
+@media (max-width: 900px) {
+  .technique-grid,
+  .technique-grid-2 { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .intro-cols { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .hero,
+  .page-hero { padding: 3rem 2rem; }
+  .advice-materials { grid-template-columns: 1fr; }
 }

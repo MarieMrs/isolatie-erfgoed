@@ -1,177 +1,237 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Materialen — Isolatie.Erfgoed</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,200;0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+/* =====================
+   NAVIGATIE ACTIVE STATE
+   ===================== */
+function setActiveNav() {
+  const page = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.remove('active');
+    const href = a.getAttribute('href');
+    if (href === page || (page === '' && href === 'index.html')) {
+      a.classList.add('active');
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', setActiveNav);
 
-<nav>
-  <a class="nav-brand" href="index.html">Isolatie<span>.</span>Erfgoed</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="beschermingsstatus.html">Beschermingsstatus</a></li>
-    <li><a href="systemen.html">Isolatiesystemen</a></li>
-    <li><a href="materialen.html" class="active">Materialen</a></li>
-    <li><a href="ioed.html">Uw IOED</a></li>
-    <li><a href="waarom.html">Waarom isoleren?</a></li>
-    <li><a href="tool.html">Advies op maat</a></li>
-  </ul>
-</nav>
+/* =====================
+   MODAL (enkel op homepage)
+   ===================== */
+function initModal() {
+  const modal = document.getElementById('modal');
+  if (!modal) return;
+  const btn = document.getElementById('modal-btn');
+  if (btn) btn.addEventListener('click', () => modal.style.display = 'none');
+}
+document.addEventListener('DOMContentLoaded', initModal);
 
-<div class="page-hero">
-  <div class="page-number">03</div>
-  <p class="page-eyebrow">Materialen · Eigenschappen · Vergelijking</p>
-  <h1 class="page-title">Materialen per systeem</h1>
-  <p class="page-subtitle">Een vergelijking van de voornaamste isolatiematerialen voor binnenisolatie van historische massieve bakstenen muren — met lambdawaarden, benodigde diktes, prijsindicaties en toepasbaarheid.</p>
-</div>
+/* =====================
+   TOOL LOGICA
+   ===================== */
+const toolAnswers = {};
+let currentStep = 1;
+const totalSteps = 6;
 
-<div class="content-wrapper">
-  <div class="breadcrumb">
-    <a href="index.html">Home</a>
-    <span>/</span>
-    <span>Materialen</span>
-  </div>
+function selectOption(step, value, element) {
+  toolAnswers[step] = value;
 
-  <div class="info-banner">
-    <p><strong>Hoe lees u deze pagina?</strong> De materialen zijn ingedeeld per systeem. Bepaal eerst welk systeem aangewezen is via de pagina <a href="systemen.html">Isolatiesystemen</a> of via de <a href="tool.html">advies op maat tool</a>. De diktes zijn indicatief voor een warmteweerstand van Rd ≥ 1,75 m²K/W.</p>
-  </div>
+  // Deselect alle opties in deze stap
+  const container = element.closest('.options');
+  if (container) {
+    container.querySelectorAll('.option-btn, .option-btn-simple').forEach(btn => {
+      btn.classList.remove('selected');
+    });
+  }
+  element.classList.add('selected');
 
-  <!-- DAMPDICHT -->
-  <div class="techniques-section">
-    <h2>Dampdicht systeem</h2>
-    <div class="technique-grid technique-grid-2">
+  // Speciale logica stap 3 (geen problemen)
+  if (step === 3 && value === 'geen_prob') {
+    const geenProbMsg = document.getElementById('geen-prob-msg');
+    const behandeldOptions = document.getElementById('behandeld-options');
+    if (geenProbMsg) geenProbMsg.style.display = 'block';
+    if (behandeldOptions) behandeldOptions.style.display = 'none';
+    toolAnswers[4] = 'geen_prob';
+  }
 
-      <div class="mat-card">
-        <img src="img/foamglas.jpg" alt="Schuimglas Foamglas isolatieplaat">
-        <div class="mat-card-body">
-          <h4>Systeem A — Schuimglas (Foamglas)</h4>
-          <span class="mat-badge badge-aanbevolen">Aanbevolen materiaal</span>
-          <p>Schuimglas heeft een volledig gesloten celstructuur en is volledig waterdamp- en vochtdicht. Het is het enige isolatiemateriaal dat volkomen onvatbaar is voor vocht, zouten en micro-organismen.</p>
-          <p class="mat-specs"><strong>λ-waarde:</strong> 0,038 W/mK &nbsp;|&nbsp; <strong>Dikte Rd 1,75:</strong> ± 7 cm &nbsp;|&nbsp; <strong>Prijs:</strong> 60–100 €/m²</p>
-          <p class="mat-specs"><strong>Voordelen:</strong> Volledig vocht- en dampdicht, bestand tegen zouten, onbrandbaar (A1), levensduur +50 jaar.</p>
-          <p class="mat-specs"><strong>Aandachtspunten:</strong> Hoogste prijs, moeilijker te verwerken, ondergrond moet volledig droog zijn bij plaatsing.</p>
-        </div>
+  // Speciale logica stap 4
+  if (step === 4) {
+    const blockMsgNee = document.getElementById('block-msg-nee');
+    const droogOptions = document.getElementById('droog-options');
+    const nextBtn = document.getElementById('next-4');
+
+    if (blockMsgNee) blockMsgNee.classList.remove('visible');
+    if (droogOptions) droogOptions.style.display = 'none';
+    if (nextBtn) nextBtn.disabled = true;
+
+    if (value === 'nee') {
+      if (blockMsgNee) blockMsgNee.classList.add('visible');
+      return;
+    }
+    if (value === 'ja') {
+      if (droogOptions) { droogOptions.style.display = 'flex'; droogOptions.style.flexDirection = 'column'; droogOptions.style.gap = '0.75rem'; }
+      return;
+    }
+    if (value === 'droog' || value === 'nog_vochtig' || value === 'gedeeltelijk') {
+      if (nextBtn) nextBtn.disabled = false;
+      return;
+    }
+  }
+
+  // Speciale logica stap 6
+  if (step === 6) {
+    const blockMsgHist = document.getElementById('block-msg-hist');
+    const nextBtn = document.getElementById('next-6');
+    if (blockMsgHist) blockMsgHist.classList.remove('visible');
+    if (value === 'historisch') {
+      if (blockMsgHist) blockMsgHist.classList.add('visible');
+      if (nextBtn) nextBtn.disabled = true;
+      return;
+    }
+  }
+
+  // Activeer volgende knop
+  const nextBtn = document.getElementById(`next-${step}`);
+  if (nextBtn) nextBtn.disabled = false;
+}
+
+function goToStep(step) {
+  document.querySelectorAll('.tool-step').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(`step-${step}`);
+  if (target) target.classList.add('active');
+  currentStep = step;
+  updateProgress(step);
+
+  // Reset stap 3/4 weergave bij terugkeren
+  if (step === 3) {
+    const geenProbMsg = document.getElementById('geen-prob-msg');
+    const behandeldOptions = document.getElementById('behandeld-options');
+    if (geenProbMsg) geenProbMsg.style.display = 'none';
+    if (behandeldOptions) { behandeldOptions.style.display = 'flex'; behandeldOptions.style.flexDirection = 'column'; behandeldOptions.style.gap = '0.75rem'; }
+  }
+
+  // Scroll naar tool
+  const toolWrapper = document.querySelector('.tool-wrapper');
+  if (toolWrapper) window.scrollTo(0, toolWrapper.offsetTop - 80);
+}
+
+function updateProgress(step) {
+  for (let i = 1; i <= totalSteps; i++) {
+    const dot = document.getElementById(`dot-${i}`);
+    if (!dot) continue;
+    if (i <= step) dot.classList.add('done');
+    else dot.classList.remove('done');
+  }
+}
+
+function showAdvice() {
+  document.querySelectorAll('.tool-step').forEach(s => s.classList.remove('active'));
+  const adviceStep = document.getElementById('step-advice');
+  if (adviceStep) adviceStep.classList.add('active');
+  updateProgress(7);
+  generateAdvice();
+  const toolWrapper = document.querySelector('.tool-wrapper');
+  if (toolWrapper) window.scrollTo(0, toolWrapper.offsetTop - 80);
+}
+
+function generateAdvice() {
+  const o = toolAnswers[5]; // oriëntatie
+  const p = toolAnswers[3]; // probleem
+  const b = toolAnswers[4]; // behandeld
+  const d = toolAnswers[2]; // dikte
+  const s = toolAnswers[1]; // statuut
+
+  // Bepaal systeem
+  const hoogRegenbelasting = (o === 'west' || o === 'zuid');
+  const regendoorslag = (p === 'regendoorslag');
+  const zoutSchade = (p === 'zout');
+  const opstijgend = (p === 'opstijgend');
+
+  let systeem = '';
+  if (regendoorslag) {
+    systeem = 'capillair';
+  } else if ((zoutSchade || opstijgend) && b === 'droog') {
+    systeem = 'dampdicht';
+  } else if (hoogRegenbelasting) {
+    systeem = 'capillair';
+  } else if (d === 'dun') {
+    systeem = 'dampdicht';
+  } else {
+    systeem = 'capillair';
+  }
+
+  // Materialen per systeem
+  const materialenDampdicht = [
+    { naam: 'Schuimglas (Foamglas)', img: 'img/foamglas.jpg', badge: 'aanbevolen', info: 'λ 0,038 W/mK · ± 7 cm voor Rd 1,75 · 60–100 €/m² · Volledig vocht- en dampdicht, onbrandbaar' },
+    { naam: 'PIR-platen', img: 'img/pir.jpg', badge: 'alternatief', info: 'λ 0,022 W/mK · ± 6 cm voor Rd 1,75 · 20–35 €/m² · Dunste optie bij beperkte ruimte' }
+  ];
+  const materialenCapillair = [
+    { naam: 'Calciumsilicaat', img: 'img/calciumsilicaat.jpg', badge: 'aanbevolen', info: 'λ 0,065 W/mK · ± 11 cm voor Rd 1,75 · 30–60 €/m² · Meest aanbevolen voor erfgoedcontext' },
+    { naam: 'Houtvezelplaten', img: 'img/houtvezel.jpg', badge: 'alternatief', info: 'λ 0,036–0,047 W/mK · ± 9 cm voor Rd 1,75 · 11–25 €/m² · Ecologisch alternatief' },
+    { naam: 'Kalkhennepblokken', img: 'img/kalkhennep.jpg', badge: 'alternatief', info: 'λ 0,071 W/mK · ± 20 cm · Meest compatibel met historische muren' }
+  ];
+
+  const materialen = systeem === 'dampdicht' ? materialenDampdicht : materialenCapillair;
+  const systeemTitel = systeem === 'dampdicht' ? 'Dampdicht systeem aanbevolen' : 'Capillair actief systeem aanbevolen';
+  const systeemUitleg = systeem === 'dampdicht'
+    ? 'Op basis van uw antwoorden is een dampdicht isolatiesysteem het meest aangewezen. Dit systeem sluit de muur volledig af voor vocht en beschermt de constructie optimaal na een volledige sanering.'
+    : 'Op basis van uw antwoorden is een capillair actief isolatiesysteem het meest aangewezen. Dit systeem werkt samen met de historische muur en laat toe dat vocht gecontroleerd wordt opgenomen en herverdeeld.';
+
+  // Aandachtspunten
+  const aandachtspunten = [];
+  if (s === 'monument' || s === 'stadsgezicht') aandachtspunten.push('Uw gebouw is beschermd. Raadpleeg de erfgoedconsulent voor aanvang van de werken.');
+  if (s === 'vastgesteld') aandachtspunten.push('Uw gebouw staat op de vastgestelde inventaris. Informeer bij uw IOED over de specifieke geldende regels.');
+  if (d === 'dun') aandachtspunten.push('Uw muur is slechts één steen dik. Zorg voor een volledig regendichte buitengevel voor aanvang.');
+  if (b === 'gedeeltelijk') aandachtspunten.push('De problemen zijn slechts gedeeltelijk behandeld. Zorg voor volledige sanering voor isolatie.');
+  if (b === 'nog_vochtig') aandachtspunten.push('De muur is nog niet volledig uitgedroogd. Wacht tot de muur volledig droog is voor u isoleert.');
+
+  // HTML genereren
+  let html = `
+    <div class="advice-box">
+      <span class="advice-badge badge-groen">${systeem === 'dampdicht' ? 'Dampdicht' : 'Capillair actief'}</span>
+      <h2 class="advice-title">${systeemTitel}</h2>
+      <p class="advice-sub">${systeemUitleg}</p>
+      <div class="advice-materials">
+        ${materialen.map(m => `
+          <div class="advice-mat">
+            <img src="${m.img}" alt="${m.naam}">
+            <div class="advice-mat-body">
+              <h4>${m.naam}</h4>
+              <p>${m.info}</p>
+            </div>
+          </div>`).join('')}
       </div>
+    </div>`;
 
-      <div class="mat-card">
-        <img src="img/pir.jpg" alt="PIR isolatieplaten">
-        <div class="mat-card-body">
-          <h4>Systeem A — PIR-platen</h4>
-          <span class="mat-badge badge-alternatief">Alternatief bij beperkte ruimte</span>
-          <p>PIR is een hard schuimisolatiemateriaal met een zeer lage lambdawaarde. De platen zijn zelf dampremmend en vormen bij correcte verlijming en afdichting van naden een goed dampscherm.</p>
-          <p class="mat-specs"><strong>λ-waarde:</strong> 0,022 W/mK &nbsp;|&nbsp; <strong>Dikte Rd 1,75:</strong> ± 6 cm &nbsp;|&nbsp; <strong>Prijs:</strong> 20–35 €/m²</p>
-          <p class="mat-specs"><strong>Voordelen:</strong> Dunste optie, goede prijs-kwaliteit, eenvoudig te verwerken.</p>
-          <p class="mat-specs"><strong>Aandachtspunten:</strong> Brandbaar (B-C), naden zorgvuldig afdichten, niet bij actieve vochtproblemen.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- CAPILLAIR ACTIEF -->
-  <div class="techniques-section">
-    <h2>Capillair actief systeem</h2>
-    <div class="warning-banner" style="margin-bottom:2rem;">
-      <p><strong>Opgelet:</strong> Sommige fabrikanten presenteren hun materiaal als capillair actief terwijl het eerder dampremmend is. Controleer altijd de productfiche. De totale isolatiewaarde daalt zo'n 10% door de vochtbuffering (WTCB-Contact 2019/5).</p>
-    </div>
-    <div class="technique-grid">
-
-      <div class="mat-card">
-        <img src="img/calciumsilicaat.jpg" alt="Calciumsilicaat isolatieplaat">
-        <div class="mat-card-body">
-          <h4>Systeem B — Calciumsilicaat</h4>
-          <span class="mat-badge badge-aanbevolen">Aanbevolen materiaal</span>
-          <p>Calciumsilicaatplaten zijn mineraal, capillair actief en dampopen. Ze verhogen de wandtemperatuur waardoor condensvorming en schimmelvorming worden vermeden.</p>
-          <p class="mat-specs"><strong>λ-waarde:</strong> 0,065 W/mK &nbsp;|&nbsp; <strong>Dikte Rd 1,75:</strong> ± 11 cm &nbsp;|&nbsp; <strong>Prijs:</strong> 30–60 €/m²</p>
-          <p class="mat-specs"><strong>Voordelen:</strong> Capillair actief en dampopen, brandveilig (A1), compatibel met kalkpleister.</p>
-          <p class="mat-specs"><strong>Toepasbaarheid:</strong> Breed toepasbaar bij historische massieve muren, ook bij lichte vochtbelasting. Meest aanbevolen voor erfgoedcontext.</p>
-        </div>
-      </div>
-
-      <div class="mat-card">
-        <img src="img/houtvezel.jpg" alt="Houtvezelplaten isolatie">
-        <div class="mat-card-body">
-          <h4>Systeem B — Houtvezelplaten</h4>
-          <span class="mat-badge badge-alternatief">Alternatief — ecologisch</span>
-          <p>Houtvezelplaten zijn biobased, dampopen en capillair actief. Ze hebben een hoge warmteopslagcapaciteit en goede geluidsdempende eigenschappen.</p>
-          <p class="mat-specs"><strong>λ-waarde:</strong> 0,036–0,047 W/mK &nbsp;|&nbsp; <strong>Dikte Rd 1,75:</strong> ± 9 cm &nbsp;|&nbsp; <strong>Prijs:</strong> 11–25 €/m²</p>
-          <p class="mat-specs"><strong>Voordelen:</strong> Ecologisch en biobased, goede vochtregulatie, betaalbaar, zomers comfort.</p>
-          <p class="mat-specs"><strong>Aandachtspunten:</strong> Niet bij hoge regenbelasting of vochtinfiltratie, vereist dampopen afwerking.</p>
-        </div>
-      </div>
-
-      <div class="mat-card">
-        <img src="img/kalkhennep.jpg" alt="Kalkhennepblokken isolatie">
-        <div class="mat-card-body">
-          <h4>Systeem B — Kalkhennepblokken</h4>
-          <span class="mat-badge badge-alternatief">Alternatief — meest compatibel</span>
-          <p>Kalkhennep is een mengsel van hennepscheven en kalk. Het is volledig dampopen, capillair actief en het meest compatibel met de bouwfysica van historische muren.</p>
-          <p class="mat-specs"><strong>λ-waarde:</strong> 0,071 W/mK &nbsp;|&nbsp; <strong>Dikte Rd 2,5:</strong> ± 20 cm &nbsp;|&nbsp; <strong>Prijs:</strong> Variabel</p>
-          <p class="mat-specs"><strong>Voordelen:</strong> Meest compatibel met historische muren, volledig dampopen, gezond binnenklimaat, ecologisch.</p>
-          <p class="mat-specs"><strong>Aandachtspunten:</strong> Grootste dikte vereist, niet bij regendoorslag, laagste isolatiewaarde per cm.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- TABEL -->
-  <div class="data-table-section">
-    <h2>Overzichtstabel materialen</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Materiaal</th>
-          <th>Systeem</th>
-          <th>λ (W/mK)</th>
-          <th>Dikte Rd 1,75</th>
-          <th>Prijs incl. plaatsing</th>
-          <th>Brandklasse</th>
-          <th>Beste muursituatie</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Schuimglas (Foamglas)</td><td>Dampdicht</td><td>0,038</td><td>± 7 cm</td><td>60–100 €/m²</td><td>A1</td><td>Na sanering vocht/zout, droge muur</td></tr>
-        <tr><td>PIR-platen</td><td>Dampdicht</td><td>0,022</td><td>± 6 cm</td><td>20–35 €/m²</td><td>B–C</td><td>Droge muur, N/O oriëntatie, beperkte ruimte</td></tr>
-        <tr><td>Calciumsilicaat</td><td>Capillair actief</td><td>0,065</td><td>± 11 cm</td><td>30–60 €/m²</td><td>A1</td><td>Breed toepasbaar, lichte vochtbelasting</td></tr>
-        <tr><td>Houtvezelplaten</td><td>Capillair actief</td><td>0,036–0,047</td><td>± 9 cm</td><td>11–25 €/m²</td><td>D</td><td>Droge muur, N/O oriëntatie, ecologisch</td></tr>
-        <tr><td>Kalkhennepblokken</td><td>Capillair actief</td><td>0,071</td><td>± 20 cm</td><td>Variabel</td><td>B</td><td>Droge muur, voldoende ruimte beschikbaar</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="warning-banner">
-    <p><strong>Prijzen zijn indicatief:</strong> De vermelde prijzen zijn richtprijzen inclusief plaatsing. Vraag altijd meerdere offertes op bij aannemers met aantoonbare ervaring in isolatie van historische gebouwen.</p>
-  </div>
-</div>
-
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-brand">Isolatie<span>.</span>Erfgoed</div>
-      <p class="footer-desc">Bachelorproef binnenisolatie historische gevels, Vlaanderen.</p>
-    </div>
-    <div class="footer-col">
-      <h5>Pagina's</h5>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="systemen.html">Isolatiesystemen</a></li>
-        <li><a href="ioed.html">Uw IOED</a></li>
-        <li><a href="tool.html">Advies op maat</a></li>
+  if (aandachtspunten.length > 0) {
+    html += `<div class="warning-banner">
+      <p><strong>Aandachtspunten voor uw situatie:</strong></p>
+      <ul style="margin-top:0.5rem;padding-left:1.25rem;">
+        ${aandachtspunten.map(a => `<li style="font-size:0.85rem;color:var(--slate);margin-bottom:0.4rem;">${a}</li>`).join('')}
       </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 Isolatie.Erfgoed</p>
-    <p>Informatieve leidraad · Geen vervanging voor professioneel advies</p>
-  </div>
-</footer>
+    </div>`;
+  }
 
-<script src="script.js"></script>
-</body>
-</html>
+  html += `<div class="info-banner"><p>Bekijk de pagina <strong><a href="materialen.html">Materialen</a></strong> voor meer technische informatie. Contacteer uw <strong><a href="ioed.html">IOED</a></strong> voor gratis pre-advies.</p></div>`;
+
+  const adviceContent = document.getElementById('advice-content');
+  if (adviceContent) adviceContent.innerHTML = html;
+}
+
+function resetTool() {
+  Object.keys(toolAnswers).forEach(k => delete toolAnswers[k]);
+  document.querySelectorAll('.option-btn, .option-btn-simple').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.tool-next').forEach(b => b.disabled = true);
+  document.querySelectorAll('.block-msg').forEach(b => b.classList.remove('visible'));
+  const geenProbMsg = document.getElementById('geen-prob-msg');
+  const behandeldOptions = document.getElementById('behandeld-options');
+  const droogOptions = document.getElementById('droog-options');
+  if (geenProbMsg) geenProbMsg.style.display = 'none';
+  if (behandeldOptions) { behandeldOptions.style.display = 'flex'; behandeldOptions.style.flexDirection = 'column'; behandeldOptions.style.gap = '0.75rem'; }
+  if (droogOptions) droogOptions.style.display = 'none';
+  for (let i = 1; i <= totalSteps; i++) {
+    const dot = document.getElementById(`dot-${i}`);
+    if (dot) { dot.classList.remove('done'); }
+  }
+  const dot1 = document.getElementById('dot-1');
+  if (dot1) dot1.classList.add('done');
+  goToStep(1);
+}
