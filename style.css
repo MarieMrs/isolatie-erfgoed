@@ -46,7 +46,7 @@ nav {
 }
 .nav-brand {
   font-family: 'DM Mono', monospace;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #fff;
   text-decoration: none;
   letter-spacing: 0.02em;
@@ -60,7 +60,7 @@ nav {
 .nav-links a {
   color: rgba(255,255,255,0.75);
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -99,7 +99,7 @@ nav {
   pointer-events: none;
 }
 .hero-eyebrow {
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--oranje);
@@ -119,7 +119,7 @@ nav {
   font-style: italic;
 }
 .hero-sub {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: rgba(255,255,255,0.7);
   max-width: 560px;
   line-height: 1.7;
@@ -132,7 +132,7 @@ nav {
   background: var(--oranje);
   color: #fff;
   padding: 1.1rem 2.5rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
   transition: background 0.2s;
@@ -175,7 +175,7 @@ nav {
   margin-bottom: 0.5rem;
 }
 .page-eyebrow {
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--oranje);
@@ -221,7 +221,7 @@ nav {
   text-align: center;
 }
 .label {
-  font-size: 0.88rem;
+  font-size: 0.78rem;
   color: var(--slate);
   line-height: 1.4;
   letter-spacing: 0.02em;
@@ -241,7 +241,7 @@ nav {
    BREADCRUMB
    ===================== */
 .breadcrumb {
-  font-size: 0.88rem;
+  font-size: 0.78rem;
   color: var(--slate);
   margin-bottom: 2.5rem;
   display: flex;
@@ -290,12 +290,12 @@ nav {
   margin-bottom: 0.75rem;
 }
 .card p {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--slate);
   line-height: 1.65;
 }
 .card-link {
-  font-size: 0.88rem;
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -329,7 +329,7 @@ nav {
   padding: 1.5rem;
 }
 .technique-item h4 {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--blauw);
   margin-bottom: 0.75rem;
@@ -337,7 +337,7 @@ nav {
   letter-spacing: 0.04em;
 }
 .technique-item p {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--slate);
   line-height: 1.65;
 }
@@ -359,7 +359,7 @@ nav {
 }
 .mat-card-body { padding: 1.5rem; }
 .mat-card-body h4 {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--blauw);
   margin-bottom: 0.5rem;
@@ -378,7 +378,7 @@ nav {
 .badge-aanbevolen { background: #2F855A; color: #fff; }
 .badge-alternatief { background: var(--clay); color: #fff; }
 .mat-specs {
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   color: var(--slate);
   line-height: 1.6;
   margin-top: 0.5rem;
@@ -426,7 +426,7 @@ nav {
 }
 .regulation-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
 .regulation-box li {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: rgba(255,255,255,0.8);
   padding-left: 1.25rem;
   position: relative;
@@ -463,7 +463,7 @@ nav {
 }
 .step-number {
   font-family: 'DM Mono', monospace;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: var(--oranje);
   min-width: 40px;
@@ -478,7 +478,7 @@ nav {
   letter-spacing: 0.04em;
 }
 .step-content p {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--slate);
   line-height: 1.65;
 }
@@ -527,7 +527,7 @@ thead th {
   padding: 0.75rem 1rem;
   text-align: left;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -557,11 +557,11 @@ tbody td {
 }
 .warmte-bars { margin: 1.5rem 0; display: flex; flex-direction: column; gap: 0.75rem; }
 .warmte-bar { display: flex; align-items: center; gap: 1rem; }
-.bar-label { font-size: 1.2rem; color: var(--slate); min-width: 160px; }
+.bar-label { font-size: 0.8rem; color: var(--slate); min-width: 160px; }
 .bar-track { flex: 1; height: 8px; background: var(--border); overflow: hidden; }
 .bar-fill { height: 100%; background: var(--blauw); }
 .bar-fill.highlight { background: var(--oranje); }
-.bar-pct { font-size: 1.2rem; font-weight: 600; color: var(--blauw); min-width: 36px; text-align: right; }
+.bar-pct { font-size: 0.8rem; font-weight: 600; color: var(--blauw); min-width: 36px; text-align: right; }
 
 /* =====================
    TOOL
@@ -577,7 +577,7 @@ tbody td {
   to { opacity: 1; transform: translateY(0); }
 }
 .step-label {
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--oranje);
@@ -615,22 +615,22 @@ tbody td {
 .option-btn.selected { border-color: var(--blauw); background: #EBF4FF; }
 .option-btn.blocked { border-color: var(--rust); background: #FFE8E2; cursor: default; }
 .option-img {
-  width: 120px;
-  min-width: 120px;
-  height: 100px;
+  width: 90px;
+  min-width: 90px;
+  height: 80px;
   object-fit: cover;
   display: block;
 }
 .option-text { padding: 0.9rem 1.2rem; }
 .opt-title {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--blauw);
   display: block;
   margin-bottom: 0.2rem;
 }
 .opt-desc {
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   color: var(--slate);
   display: block;
   line-height: 1.5;
@@ -731,13 +731,13 @@ tbody td {
 }
 .advice-mat-body { padding: 1rem; border-left: 3px solid var(--oranje); }
 .advice-mat h4 {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #fff;
   margin-bottom: 0.4rem;
 }
 .advice-mat p {
-  font-size: 0.88rem;
+  font-size: 0.78rem;
   color: rgba(255,255,255,0.65);
   line-height: 1.5;
 }
@@ -759,18 +759,18 @@ footer {
 }
 .footer-brand {
   font-family: 'DM Mono', monospace;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #fff;
   margin-bottom: 0.75rem;
 }
 .footer-brand span { color: var(--oranje); }
 .footer-desc {
-  font-size: 0.88rem;
+  font-size: 0.78rem;
   color: rgba(255,255,255,0.5);
   line-height: 1.6;
 }
 .footer-col h5 {
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.5);
@@ -791,7 +791,7 @@ footer {
   display: flex;
   justify-content: space-between;
 }
-.footer-bottom p { font-size: 0.95rem; color: rgba(255,255,255,0.35); }
+.footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
 
 /* =====================
    BUTTONS
