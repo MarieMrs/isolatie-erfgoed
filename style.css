@@ -398,7 +398,7 @@ nav {
   line-height: 1.65;
 }
 .warning-banner {
-  background: #FFF5F0;
+  background: #FFE8E2;
   border-left: 4px solid var(--rust);
   padding: 1.25rem 1.5rem;
   margin: 1.5rem 0;
@@ -613,11 +613,11 @@ tbody td {
 }
 .option-btn:hover { border-color: var(--blauw); background: #EBF4FF; }
 .option-btn.selected { border-color: var(--blauw); background: #EBF4FF; }
-.option-btn.blocked { border-color: var(--rust); background: #FFF5F0; cursor: default; }
+.option-btn.blocked { border-color: var(--rust); background: #FFE8E2; cursor: default; }
 .option-img {
-  width: 90px;
-  min-width: 90px;
-  height: 80px;
+  width: 120px;
+  min-width: 120px;
+  height: 100px;
   object-fit: cover;
   display: block;
 }
@@ -648,7 +648,7 @@ tbody td {
 }
 .option-btn-simple:hover { border-color: var(--blauw); background: #EBF4FF; }
 .option-btn-simple.selected { border-color: var(--blauw); background: #EBF4FF; }
-.option-btn-simple.blocked { border-color: var(--rust); background: #FFF5F0; cursor: default; }
+.option-btn-simple.blocked { border-color: var(--rust); background: #FFE8E2; cursor: default; }
 
 .tool-nav { display: flex; gap: 1rem; justify-content: space-between; align-items: center; }
 .tool-back {
