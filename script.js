@@ -353,7 +353,7 @@ function generateAdvice() {
     aandachtspunten.push('Uw gebouw staat op de vastgestelde inventaris. Informeer bij uw <strong><a href="ioed.html">IOED</a></strong> over de specifieke geldende regels voor uw situatie.');
   }
   if (renovatieplicht === 'ja') {
-    aandachtspunten.push('U valt onder de <strong>renovatieplicht</strong>. U moet binnen 6 jaar na aankoop energielabel D bereiken. Voor buitenmuren geldt U ≤ 0,24 W/m²K. Alle besproken materialen kunnen deze eis halen bij de juiste isolatiedikte op basis van de volledige wandopbouw.');
+    aandachtspunten.push('U valt onder de <strong>renovatieplicht</strong>. U moet binnen 6 jaar na aankoop energielabel D bereiken. Voor buitenmuren geldt U ≤ 0,24 W/m²K. Raadpleeg een specialist voor de correcte isolatiedikte in uw situatie.');
   }
   if (muurdikte === 'normaal') {
     aandachtspunten.push('Uw muur is anderhalve steen dik. Zorg dat het voegwerk in goede staat is voor aanvang van de isolatiewerken.');
