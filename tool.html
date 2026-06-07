@@ -41,107 +41,105 @@
     <div class="progress-dot" id="dot-4"></div>
     <div class="progress-dot" id="dot-5"></div>
     <div class="progress-dot" id="dot-6"></div>
+    <div class="progress-dot" id="dot-7"></div>
+    <div class="progress-dot" id="dot-8"></div>
   </div>
 
   <!-- STAP 1 — Beschermingsstatus -->
   <div class="tool-step active" id="step-1">
-    <p class="step-label">Stap 1 van 6</p>
+    <p class="step-label">Stap 1 van 8</p>
     <h2 class="step-q">Wat is de beschermingsstatus van uw gebouw?</h2>
-    <p class="step-hint">De beschermingsstatus bepaalt welke wettelijke vrijstellingen van toepassing zijn. Weet u het niet? Zoek uw adres op via <a href="https://geo.onroerenderfgoed.be" target="_blank" style="color:var(--rust);">geo.onroerenderfgoed.be</a>.</p>
+    <p class="step-hint">De beschermingsstatus bepaalt welke wettelijke vrijstellingen van toepassing zijn. Weet u het niet? Zoek uw adres op via <a href="https://geo.onroerenderfgoed.be" target="_blank" style="color:var(--rust);">geo.onroerenderfgoed.be</a> of contacteer uw <a href="ioed.html" style="color:var(--rust);">IOED</a>. Niet elk historisch gebouw is beschermd en niet elk beschermd gebouw is een monument — het verschil heeft concrete juridische gevolgen.</p>
     <div class="options">
       <button class="option-btn-simple" onclick="selectOption(1,'monument',this)">
         <span class="opt-title">Beschermd monument</span>
-        <span class="opt-desc">Individueel beschermd gebouw. Alle gevels vrijgesteld van U-waarden. Vrijgesteld van renovatieplicht.</span>
+        <span class="opt-desc">Individueel beschermd gebouw. Alle gevels volledig vrijgesteld van U-waarden. Advies van erfgoedconsulent is bindend bij ingreep aan straatgevel.</span>
       </button>
       <button class="option-btn-simple" onclick="selectOption(1,'stadsgezicht',this)">
         <span class="opt-title">Beschermd stads- of dorpsgezicht</span>
-        <span class="opt-desc">Gebouw maakt deel uit van een beschermd gebied. Zelfde vrijstellingen als beschermd monument.</span>
+        <span class="opt-desc">Gebouw maakt deel uit van een beschermd gebied. Zelfde vrijstellingen als beschermd monument. Erfgoedconsulent bindend bij straatgevel.</span>
       </button>
       <button class="option-btn-simple" onclick="selectOption(1,'vastgesteld',this)">
         <span class="opt-title">Vastgesteld bouwkundig erfgoed</span>
-        <span class="opt-desc">Op de vastgestelde inventaris. Voorgevel vrijgesteld, andere gevels moeten aan EPB-eisen voldoen.</span>
+        <span class="opt-desc">Op de vastgestelde inventaris. Voorgevel vrijgesteld van U-waarden, andere gevels moeten aan EPB-eisen voldoen.</span>
       </button>
       <button class="option-btn-simple" onclick="selectOption(1,'geen',this)">
         <span class="opt-title">Geen officiële bescherming</span>
-        <span class="opt-desc">Historisch gebouw zonder erfgoedstatuut. Gewone EPB-eisen zijn van toepassing.</span>
+        <span class="opt-desc">Historisch gebouw zonder erfgoedstatuut. Gewone EPB-eisen zijn van toepassing. U ≤ 0,24 W/m²K voor buitenmuren bij na-isolatie.</span>
       </button>
     </div>
     <div class="tool-nav">
       <div></div>
-      <button class="tool-next" id="next-1" disabled onclick="goToStep(2)">Volgende stap →</button>
+      <button class="tool-next" id="next-1" disabled onclick="handleStep1Next()">Volgende stap →</button>
+    </div>
+  </div>
+
+  <!-- STAP 1A — Renovatieplicht (alleen bij geen bescherming) -->
+  <div class="tool-step" id="step-1a">
+    <p class="step-label">Stap 1a van 8</p>
+    <h2 class="step-q">Is dit gebouw na 1 januari 2023 aangekocht met EPC-label E of F?</h2>
+    <p class="step-hint">Eigenaars die een woning met EPC-label E of F hebben aangekocht zijn wettelijk verplicht om binnen 6 jaar na aankoop energielabel D te bereiken. Voor buitenmuren geldt daarbij U ≤ 0,24 W/m²K. Alle isolatiematerialen kunnen deze eis halen bij de juiste dikte, op basis van de volledige wandopbouw inclusief de bestaande muur.</p>
+    <div class="options">
+      <button class="option-btn-simple" onclick="selectOption('1a','ja',this)">
+        <span class="opt-title">Ja — renovatieplicht van toepassing</span>
+        <span class="opt-desc">U bent wettelijk verplicht de U-waarde van 0,24 W/m²K te halen binnen 6 jaar na aankoop. Alle materialen zijn in principe geschikt bij de juiste isolatiedikte.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption('1a','nee',this)">
+        <span class="opt-title">Nee — geen renovatieplicht</span>
+        <span class="opt-desc">Geen wettelijke dwang voor U-eis. De systeemkeuze wordt louter op bouwfysische en erfgoedtechnische gronden gemaakt.</span>
+      </button>
+    </div>
+    <div class="tool-nav">
+      <button class="tool-back" onclick="goToStep(1)">← Terug</button>
+      <button class="tool-next" id="next-1a" disabled onclick="goToStep(2)">Volgende stap →</button>
     </div>
   </div>
 
   <!-- STAP 2 — Muurdikte -->
   <div class="tool-step" id="step-2">
-    <p class="step-label">Stap 2 van 6</p>
+    <p class="step-label">Stap 2 van 8</p>
     <h2 class="step-q">Hoe dik is uw muur?</h2>
-    <p class="step-hint">Meet de breedte van een vensterbank of dagkant van een raamopening van buitenzijde tot binnenzijde.</p>
+    <p class="step-hint">Meet de breedte van een vensterbank of dagkant van een raamopening van buitenzijde tot binnenzijde. Weet u het niet? Vraag het na bij een aannemer of schat op basis van het bouwjaar van het gebouw.</p>
     <div class="options">
       <button class="option-btn-simple" onclick="selectOption(2,'dun',this)">
         <span class="opt-title">Één steen — ± 20 cm</span>
-        <span class="opt-desc">Dunne muur. Meestal niet regendicht. Binnenisolatie enkel met dampdicht systeem.</span>
+        <span class="opt-desc">Dunne muur. Structureel niet regendicht genoeg voor binnenisolatie. Binnenisolatie is in deze situatie onverantwoord.</span>
       </button>
       <button class="option-btn-simple" onclick="selectOption(2,'normaal',this)">
         <span class="opt-title">Anderhalve steen — ± 30 cm</span>
-        <span class="opt-desc">Standaard dikte voor hogere verdiepingen. Doorgaans regendicht bij goede staat van voegen.</span>
+        <span class="opt-desc">Standaard dikte. Mogelijk geschikt voor binnenisolatie, afhankelijk van de oriëntatie van de gevel.</span>
       </button>
       <button class="option-btn-simple" onclick="selectOption(2,'dik',this)">
         <span class="opt-title">Twee stenen of meer — ± 40 cm</span>
-        <span class="opt-desc">Dikke muur, typisch voor gelijkvloerse verdieping. Regendicht. Alle systemen mogelijk.</span>
+        <span class="opt-desc">Dikke muur. In principe altijd geschikt voor binnenisolatie ongeacht de oriëntatie.</span>
       </button>
     </div>
+    <div class="block-msg" id="block-msg-dun">
+      <p><strong>Binnenisolatie is niet aangewezen voor muren van één steen dik.</strong> Een muur van ± 20 cm is structureel niet regendicht genoeg. Binnenisolatie zou het vochtrisico sterk verhogen. Raadpleeg een <strong>bouwfysisch adviseur</strong> voor alternatieven.</p>
+    </div>
     <div class="tool-nav">
-      <button class="tool-back" onclick="goToStep(1)">← Terug</button>
-      <button class="tool-next" id="next-2" disabled onclick="goToStep(3)">Volgende stap →</button>
+      <button class="tool-back" onclick="handleStep2Back()">← Terug</button>
+      <button class="tool-next" id="next-2" disabled onclick="handleStep2Next()">Volgende stap →</button>
     </div>
   </div>
 
-  <!-- STAP 3 — Schade (MET FOTO'S) -->
+  <!-- STAP 3 — Oriëntatie (alleen bij 1,5 steen) -->
   <div class="tool-step" id="step-3">
-    <p class="step-label">Stap 3 van 6</p>
-    <h2 class="step-q">Welke problemen zijn zichtbaar op uw muur?</h2>
-    <p class="step-hint">Bekijk de muur bij daglicht van dichtbij. Herkent u één van onderstaande problemen?</p>
+    <p class="step-label">Stap 3 van 8</p>
+    <h2 class="step-q">Geeft uw gevel uit op het zuidwesten?</h2>
+    <p class="step-hint">Zuidwest-georiënteerde gevels zonder dakoversteek zijn blootgesteld aan de hoogste regenbelasting in België. Bij een muur van anderhalve steen is dit een kritische factor. Gebruik het kompas op uw smartphone om de oriëntatie te bepalen.</p>
     <div class="options">
-      <button class="option-btn-simple" onclick="selectOption(3,'geen_prob',this)">
-        <span class="opt-title">Geen zichtbare problemen</span>
-        <span class="opt-desc">De muur is droog, geen vlekken, geen uitbloeiingen, geen scheuren.</span>
+      <button class="option-btn-simple" onclick="selectOption(3,'ja_zw',this)">
+        <span class="opt-title">Ja — zuidwest of west georiënteerd</span>
+        <span class="opt-desc">Hoge regenbelasting. In combinatie met een muur van anderhalve steen is binnenisolatie te risicovol.</span>
       </button>
-      <button class="option-btn" onclick="selectOption(3,'opstijgend',this)">
-        <img src="opstijgend-vocht.jpg" alt="Opstijgend vocht" class="option-img">
-        <div class="option-text">
-          <span class="opt-title">Opstijgend vocht</span>
-          <span class="opt-desc">Donkere verkleuring onderaan de muur tot ± 1 m hoogte. Ongeacht het weer aanwezig.</span>
-        </div>
+      <button class="option-btn-simple" onclick="selectOption(3,'nee_zw',this)">
+        <span class="opt-title">Nee — andere oriëntatie (noord, oost, oost-west, zuid)</span>
+        <span class="opt-desc">Aanvaardbare regenbelasting in combinatie met een muur van anderhalve steen. Binnenisolatie is mogelijk.</span>
       </button>
-      <button class="option-btn" onclick="selectOption(3,'regendoorslag',this)">
-        <img src="vocht-binnenmuur.jpg" alt="Regendoorslag" class="option-img">
-        <div class="option-text">
-          <span class="opt-title">Regendoorslag</span>
-          <span class="opt-desc">Loszittend of opbollend pleisterwerk, vochtplek die verschijnt na regen.</span>
-        </div>
-      </button>
-      <button class="option-btn" onclick="selectOption(3,'zout',this)">
-        <img src="zoutschade.jpg" alt="Zoutschade" class="option-img">
-        <div class="option-text">
-          <span class="opt-title">Zoutschade</span>
-          <span class="opt-desc">Witte uitbloeiingen, schilfering of afbrokkeling op het oppervlak van bakstenen of pleister.</span>
-        </div>
-      </button>
-      <button class="option-btn" onclick="selectOption(3,'scheuren',this)">
-        <img src="scheuren.jpg" alt="Scheuren in metselwerk" class="option-img">
-        <div class="option-text">
-          <span class="opt-title">Scheuren</span>
-          <span class="opt-desc">Zichtbare barsten in het metselwerk of de voegen.</span>
-        </div>
-      </button>
-      <button class="option-btn" onclick="selectOption(3,'geschilderd',this)">
-        <img src="geschilderde-gevel.jpg" alt="Geschilderde buitengevel" class="option-img">
-        <div class="option-text">
-          <span class="opt-title">Geschilderde buitengevel</span>
-          <span class="opt-desc">Verflaag op de buitenzijde. Bemoeilijkt uitdroging naar buiten toe.</span>
-        </div>
-      </button>
+    </div>
+    <div class="block-msg" id="block-msg-zw">
+      <p><strong>Binnenisolatie is niet aangewezen voor deze combinatie.</strong> Een muur van anderhalve steen met zuidwest-oriëntatie is te kwetsbaar voor de hoge regenbelasting. Raadpleeg een <strong>bouwfysisch adviseur</strong> voor een grondige analyse.</p>
     </div>
     <div class="tool-nav">
       <button class="tool-back" onclick="goToStep(2)">← Terug</button>
@@ -149,69 +147,72 @@
     </div>
   </div>
 
-  <!-- STAP 4 — Behandeld? -->
+  <!-- STAP 4 — Zichtbare schade -->
   <div class="tool-step" id="step-4">
-    <p class="step-label">Stap 4 van 6</p>
-    <h2 class="step-q">Zijn de vastgestelde problemen al behandeld?</h2>
-    <p class="step-hint">Isolatie mag nooit worden aangebracht op een muur met actieve schade.</p>
-    <div class="info-banner" id="geen-prob-msg" style="display:none;">
-      <p>Uw muur vertoont geen zichtbare problemen. U kunt direct verdergaan naar de volgende stap.</p>
-    </div>
-    <div class="options" id="behandeld-options">
-      <button class="option-btn-simple" onclick="selectOption(4,'ja',this)">
-        <span class="opt-title">Ja, volledig behandeld</span>
-        <span class="opt-desc">De problemen zijn volledig gesaneerd en de muur is droog en stabiel.</span>
+    <p class="step-label">Stap 4 van 8</p>
+    <h2 class="step-q">Welke problemen zijn zichtbaar op uw muur?</h2>
+    <p class="step-hint">Bekijk de muur bij daglicht van dichtbij, zowel aan de binnen- als buitenzijde. Herkent u één van onderstaande problemen? De aanwezigheid van schade bepaalt of isolatie mogelijk is én beïnvloedt de materiaalkeuze, ook als het probleem al is opgelost.</p>
+    <div class="options">
+      <button class="option-btn-simple" onclick="selectOption(4,'geen_prob',this)">
+        <span class="opt-title">Geen zichtbare problemen</span>
+        <span class="opt-desc">De muur is droog, geen vlekken, geen uitbloeiingen, geen scheuren. U gaat direct naar stap 6.</span>
       </button>
-      <button class="option-btn-simple" onclick="selectOption(4,'gedeeltelijk',this)">
-        <span class="opt-title">Gedeeltelijk behandeld</span>
-        <span class="opt-desc">Sommige problemen zijn aangepakt maar niet volledig opgelost.</span>
+      <button class="option-btn" onclick="selectOption(4,'opstijgend',this)">
+        <img src="opstijgend-vocht.jpg" alt="Opstijgend vocht" class="option-img">
+        <div class="option-text">
+          <span class="opt-title">Opstijgend vocht</span>
+          <span class="opt-desc">Donkere verkleuring onderaan de muur tot ± 1 m hoogte. Ongeacht het weer aanwezig. Wijst op vochtindringing vanuit de bodem.</span>
+        </div>
       </button>
-      <button class="option-btn-simple blocked" onclick="selectOption(4,'nee',this)">
-        <span class="opt-title">Nee, nog niet behandeld</span>
-        <span class="opt-desc">De problemen zijn nog aanwezig en niet gesaneerd.</span>
+      <button class="option-btn" onclick="selectOption(4,'regendoorslag',this)">
+        <img src="vocht-binnenmuur.jpg" alt="Regendoorslag" class="option-img">
+        <div class="option-text">
+          <span class="opt-title">Regendoorslag</span>
+          <span class="opt-desc">Loszittend of opbollend pleisterwerk, vochtplek die verschijnt na regen en verdwijnt bij droog weer.</span>
+        </div>
       </button>
-    </div>
-    <div class="block-msg" id="block-msg-nee">
-      <p><strong>Isolatie is op dit moment niet aangewezen.</strong> Bestaande vochtproblemen, schade of scheuren moeten volledig worden opgelost voordat u isoleert. Schakel eerst een gespecialiseerde aannemer in voor de sanering en raadpleeg uw <a href="ioed.html">IOED</a>.</p>
-    </div>
-    <div class="options" id="droog-options" style="display:none;">
-      <button class="option-btn-simple" onclick="selectOption(4,'droog',this)">
-        <span class="opt-title">Muur volledig droog</span>
-        <span class="opt-desc">De muur is na sanering volledig uitgedroogd. Geen zichtbare vochtsporen meer aanwezig.</span>
+      <button class="option-btn" onclick="selectOption(4,'zout',this)">
+        <img src="zoutschade.jpg" alt="Zoutschade" class="option-img">
+        <div class="option-text">
+          <span class="opt-title">Zoutschade</span>
+          <span class="opt-desc">Witte uitbloeiingen, schilfering of afbrokkeling op het oppervlak van bakstenen of pleister. Kan seizoensgebonden zijn.</span>
+        </div>
       </button>
-      <button class="option-btn-simple" onclick="selectOption(4,'nog_vochtig',this)">
-        <span class="opt-title">Muur nog vochtig</span>
-        <span class="opt-desc">De sanering is uitgevoerd maar de muur is nog niet volledig uitgedroogd.</span>
+      <button class="option-btn" onclick="selectOption(4,'scheuren',this)">
+        <img src="scheuren.jpg" alt="Scheuren in metselwerk" class="option-img">
+        <div class="option-text">
+          <span class="opt-title">Scheuren</span>
+          <span class="opt-desc">Zichtbare barsten in het metselwerk of de voegen. Wijzen op bewegingen in de constructie.</span>
+        </div>
       </button>
     </div>
     <div class="tool-nav">
-      <button class="tool-back" onclick="goToStep(3)">← Terug</button>
-      <button class="tool-next" id="next-4" disabled onclick="goToStep(5)">Volgende stap →</button>
+      <button class="tool-back" onclick="handleStep4Back()">← Terug</button>
+      <button class="tool-next" id="next-4" disabled onclick="handleStep4Next()">Volgende stap →</button>
     </div>
   </div>
 
-  <!-- STAP 5 — Oriëntatie -->
+  <!-- STAP 5 — Schade behandeld? (alleen bij schade aanwezig) -->
   <div class="tool-step" id="step-5">
-    <p class="step-label">Stap 5 van 6</p>
-    <h2 class="step-q">Welke richting geeft uw gevel uit?</h2>
-    <p class="step-hint">De oriëntatie bepaalt de regenbelasting op uw muur. West- en zuidgerichte gevels vangen de meeste slagregen op. Gebruik het kompas op uw smartphone.</p>
+    <p class="step-label">Stap 5 van 8</p>
+    <h2 class="step-q">Is de vastgestelde schade volledig behandeld en is de muur droog?</h2>
+    <p class="step-hint">Binnenisolatie mag nooit worden aangebracht op een muur met actieve schade. Let op: de voorgeschiedenis van de muur beïnvloedt de materiaalkeuze, ook als het probleem volledig is opgelost.</p>
     <div class="options">
-      <button class="option-btn-simple" onclick="selectOption(5,'noord',this)">
-        <span class="opt-title">Noord</span>
-        <span class="opt-desc">Laagste regenbelasting. Geen directe zoninstraling. Beide systemen zijn mogelijk.</span>
+      <button class="option-btn-simple" onclick="selectOption(5,'ja',this)">
+        <span class="opt-title">Ja — volledig behandeld en muur is droog</span>
+        <span class="opt-desc">De schade is volledig gesaneerd. De muur is stabiel en droog. De voorgeschiedenis wordt meegenomen in de materiaalaanbeveling.</span>
       </button>
-      <button class="option-btn-simple" onclick="selectOption(5,'oost',this)">
-        <span class="opt-title">Oost</span>
-        <span class="opt-desc">Matige regenbelasting. Ochtendzon. Beide systemen zijn mogelijk.</span>
+      <button class="option-btn-simple" onclick="selectOption(5,'gedeeltelijk',this)">
+        <span class="opt-title">Gedeeltelijk behandeld</span>
+        <span class="opt-desc">Sommige problemen zijn aangepakt maar niet volledig opgelost. Isolatie is op dit moment niet aangewezen.</span>
       </button>
-      <button class="option-btn-simple" onclick="selectOption(5,'west',this)">
-        <span class="opt-title">West</span>
-        <span class="opt-desc">Hoge regenbelasting door heersende westenwind. Capillair actief systeem sterk aanbevolen.</span>
+      <button class="option-btn-simple" onclick="selectOption(5,'nee',this)">
+        <span class="opt-title">Nee — nog niet behandeld</span>
+        <span class="opt-desc">De problemen zijn nog aanwezig en niet gesaneerd. Isolatie is onverantwoord.</span>
       </button>
-      <button class="option-btn-simple" onclick="selectOption(5,'zuid',this)">
-        <span class="opt-title">Zuid</span>
-        <span class="opt-desc">Hoge zoninstraling, matige regenbelasting. Capillair actief systeem aanbevolen.</span>
-      </button>
+    </div>
+    <div class="block-msg" id="block-msg-schade">
+      <p><strong>Isolatie is op dit moment niet aangewezen.</strong> Binnenisolatie lost vochtproblemen niet op — ze verplaatst ze, maakt ze onzichtbaar en verergert ze op termijn. Schakel eerst een gespecialiseerde aannemer of restauratiearchitect in voor de volledige sanering.</p>
     </div>
     <div class="tool-nav">
       <button class="tool-back" onclick="goToStep(4)">← Terug</button>
@@ -219,31 +220,79 @@
     </div>
   </div>
 
-  <!-- STAP 6 — Binnenafwerking -->
+  <!-- STAP 6 — Gevel geschilderd? -->
   <div class="tool-step" id="step-6">
-    <p class="step-label">Stap 6 van 6</p>
-    <h2 class="step-q">Wat is de binnenafwerking van uw muur?</h2>
-    <p class="step-hint">De aanwezige binnenafwerking bepaalt of binnenisolatie mogelijk is en welke materialen in aanmerking komen.</p>
+    <p class="step-label">Stap 6 van 8</p>
+    <h2 class="step-q">Is de buitengevel geschilderd?</h2>
+    <p class="step-hint">Een verflaag aan de buitenzijde bemoeilijkt de uitdroging van de muur naar buiten. Kalkverf en silicaatverf zijn dampopen en vormen geen probleem. Synthetische of acrylverf is dampdicht en sluit capillair actieve systemen uit. Bekijk de gevel van dichtbij of informeer bij de vorige eigenaar.</p>
     <div class="options">
-      <button class="option-btn-simple" onclick="selectOption(6,'geen_afw',this)">
-        <span class="opt-title">Geen afwerking</span>
-        <span class="opt-desc">Ruw metselwerk zichtbaar aan de binnenzijde.</span>
+      <button class="option-btn-simple" onclick="selectOption(6,'nee',this)">
+        <span class="opt-title">Nee — gevel niet geschilderd</span>
+        <span class="opt-desc">Onbehandeld metselwerk of dampopen afwerking. Uitdroging naar buiten is mogelijk. Alle systemen zijn bespreekbaar.</span>
       </button>
-      <button class="option-btn-simple" onclick="selectOption(6,'gewone_pleister',this)">
-        <span class="opt-title">Gewone pleister of gipslaag</span>
-        <span class="opt-desc">Standaard afwerking zonder erfgoedwaarde. Kan worden verwijderd.</span>
+      <button class="option-btn" onclick="selectOption(6,'ja',this)">
+        <img src="geschilderde-gevel.jpg" alt="Geschilderde buitengevel" class="option-img">
+        <div class="option-text">
+          <span class="opt-title">Ja — gevel is geschilderd</span>
+          <span class="opt-desc">Verflaag aanwezig aan de buitenzijde. Capillair actief systeem is uitgesloten. Dampdicht systeem is waarschijnlijk de enige optie, maar vereist een dauwpuntberekening door een specialist.</span>
+        </div>
       </button>
-      <button class="option-btn-simple blocked" onclick="selectOption(6,'historisch',this)">
-        <span class="opt-title">Historische afwerking</span>
-        <span class="opt-desc">Lambrisering, wandbespanning, decoratieve stuclagen of historische schilderingen.</span>
-      </button>
-    </div>
-    <div class="block-msg" id="block-msg-hist">
-      <p><strong>Historische binnenafwerking aanwezig:</strong> Isolatie mag nooit worden aangebracht op of tegen waardevolle historische afwerkingen. Raadpleeg uw erfgoedconsulent of <a href="ioed.html">IOED</a> voor de mogelijkheden.</p>
     </div>
     <div class="tool-nav">
-      <button class="tool-back" onclick="goToStep(5)">← Terug</button>
-      <button class="tool-next" id="next-6" disabled onclick="showAdvice()">Bekijk mijn advies →</button>
+      <button class="tool-back" onclick="handleStep6Back()">← Terug</button>
+      <button class="tool-next" id="next-6" disabled onclick="goToStep(7)">Volgende stap →</button>
+    </div>
+  </div>
+
+  <!-- STAP 7 — Historische interieurelementen en binnenafwerking -->
+  <div class="tool-step" id="step-7">
+    <p class="step-label">Stap 7 van 8</p>
+    <h2 class="step-q">Zijn er historisch waardevolle elementen aanwezig aan de binnenzijde?</h2>
+    <p class="step-hint">Denk aan wandschilderingen, lambrisering, textiele wandbespanning, goudleerbehang of een historische kalkpleisterlaag. Een verwaarloosde afwerking kan toch historisch waardevol zijn. Raadpleeg bij twijfel een erfgoedconsulent voordat u iets verwijdert.</p>
+    <div class="options">
+      <button class="option-btn-simple" onclick="selectOption(7,'nee',this)">
+        <span class="opt-title">Nee — geen historische interieurelementen</span>
+        <span class="opt-desc">Geen bijzondere erfgoedbeperking aan de binnenzijde. Gewone pleister of geen afwerking aanwezig.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(7,'ja',this)">
+        <span class="opt-title">Ja — historische interieurelementen aanwezig</span>
+        <span class="opt-desc">Wandschilderingen, lambrisering, textiele bespanning, decoratieve stuclagen of historische kalkpleister. Binnenisolatie tast de erfgoedwaarde aan.</span>
+      </button>
+    </div>
+    <div class="block-msg" id="block-msg-interieur">
+      <p><strong>Historische binnenafwerking aanwezig:</strong> Isolatie mag nooit worden aangebracht op of tegen historisch waardevolle afwerkingen. Raadpleeg uw <strong>erfgoedconsulent</strong> of <a href="ioed.html">IOED</a> voor de mogelijkheden.</p>
+    </div>
+    <div class="tool-nav">
+      <button class="tool-back" onclick="goToStep(6)">← Terug</button>
+      <button class="tool-next" id="next-7" disabled onclick="goToStep(8)">Volgende stap →</button>
+    </div>
+  </div>
+
+  <!-- STAP 8 — Houten balkkoppen -->
+  <div class="tool-step" id="step-8">
+    <p class="step-label">Stap 8 van 8</p>
+    <h2 class="step-q">Zijn er houten vloerbalken in de buitenmuur ingemetseld?</h2>
+    <p class="step-hint">Bij veel historische gebouwen rusten houten vloerbalken rechtstreeks in de buitenmuur. Na binnenisolatie worden de balkkoppen kouder en natter, wat houtrot kan veroorzaken. Weet u het niet zeker? Laat een aannemer of bouwfysisch adviseur dit controleren voor u isoleert.</p>
+    <div class="options">
+      <button class="option-btn-simple" onclick="selectOption(8,'nee',this)">
+        <span class="opt-title">Nee — geen houten balkkoppen in de muur</span>
+        <span class="opt-desc">Geen bijzonder risico voor houtrot. Betonvloeren of vloeren die niet in de buitenmuur rusten.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(8,'ja_goed',this)">
+        <span class="opt-title">Ja — balkkoppen aanwezig, goede staat</span>
+        <span class="opt-desc">Houten balkkoppen aanwezig maar geen sporen van rot of schimmel. Capillair actief systeem is sterk aanbevolen. Zorgvuldige detaillering rondom de balkkoppen is vereist.</span>
+      </button>
+      <button class="option-btn-simple" onclick="selectOption(8,'ja_slecht',this)">
+        <span class="opt-title">Ja — balkkoppen aanwezig, degradatiesporen zichtbaar</span>
+        <span class="opt-desc">Sporen van rot, schimmel of aantasting. Isolatie zal de schade verergeren.</span>
+      </button>
+    </div>
+    <div class="block-msg" id="block-msg-balken">
+      <p><strong>Isolatie is op dit moment niet aangewezen.</strong> Houten balkkoppen met degradatiesporen moeten eerst constructief worden aangepakt. Raadpleeg een <strong>restauratiearchitect</strong> en een <strong>bouwfysisch adviseur</strong>.</p>
+    </div>
+    <div class="tool-nav">
+      <button class="tool-back" onclick="goToStep(7)">← Terug</button>
+      <button class="tool-next" id="next-8" disabled onclick="showAdvice()">Bekijk mijn advies →</button>
     </div>
   </div>
 
